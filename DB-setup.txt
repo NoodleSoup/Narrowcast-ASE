@@ -1,0 +1,11 @@
+narrowcastNr = INT + PRIMARY_KEY + AUTO_INCREMENT
+teacherFirst = VARCHAR / string
+teacherLast = VARCHAR / string
+courseName = VARCHAR / string
+courseID = INT-VARCHAR / int-string
+eMail = VARCHAR / string
+phoneNumber = VARCHAR / string
+teacherPresent = BOOLEAN / bool
+classLocation = VARCHAR / string
+teacherReachable = BOOLEAN / bool
+updateDate = DATETIME / string

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.138
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySQL-dockerdb", "MySQL-dockerdb.csproj", "{A16C66F6-5BC7-4AE3-8AE8-9909E9C1966D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A16C66F6-5BC7-4AE3-8AE8-9909E9C1966D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16C66F6-5BC7-4AE3-8AE8-9909E9C1966D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16C66F6-5BC7-4AE3-8AE8-9909E9C1966D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16C66F6-5BC7-4AE3-8AE8-9909E9C1966D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1B9CBF1-EFF9-4B8D-A14F-A5588A8B1108}
+	EndGlobalSection
+EndGlobal
