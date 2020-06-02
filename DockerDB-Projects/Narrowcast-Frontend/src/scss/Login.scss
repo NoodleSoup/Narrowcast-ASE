@@ -1,0 +1,89 @@
+.login {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background-color: #009aa0;
+    position: center;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+}
+
+.login-fields{
+    h1.title{
+        text-align: center;
+        color: #fff;
+    }
+
+    input.username {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: none;
+        box-sizing: border-box;
+        position: center;
+        display: block;
+        width: calc(100% - 10px);
+    }
+
+    input.password{
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        border: none;
+        box-sizing: border-box;
+        position: center;
+        display: block;
+        width: calc(100% - 10px);
+    }
+
+    button.submit-button{
+        position: center;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: none;
+        width: calc(100% - 10px);
+        background-color: #005AA9;
+        color: #fff;
+        display: block;
+    }
+
+    top:calc(100px - 300px);
+	bottom: 0;
+	left: 0;
+	right: 0;
+    margin: auto;
+    width: 250px;
+    height: 100px;
+    position: fixed;
+    color: #fff;
+    display: inline-block;
+}
+
+.LogoNHL{
+    display: grid;
+    width: 20vw;
+    height: 20vh;
+    background-image: url('../img/nhl_students.png');
+    background-repeat: no-repeat;
+    background-size: contain, cover;
+    
+    // background-color: #fff;
+    position: fixed;
+    bottom: 0px;
+    left: 20px;
+}
+
+.LogoTeach{
+    display: grid;
+    background-image: url('../img/teachere.png');
+    background-repeat: no-repeat;
+    background-size: contain, cover;
+
+    width: 20vw;
+    height: 15vh;
+
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+}
