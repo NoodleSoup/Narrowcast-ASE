@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      pageTitle: 'Teachere?',
+      pageTitle: '',
       courses: null,
       filterTerm: '',
       filterDataTerm: '', // initialize custom filter input

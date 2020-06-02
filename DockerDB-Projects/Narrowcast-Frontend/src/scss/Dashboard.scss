@@ -11,7 +11,6 @@
       padding: 0 30px;
       background-color: #009BAA;
       color: white;
-      border: #009BAA;
     }
   
     aside {
@@ -19,14 +18,16 @@
       grid-column: 1; 
       background-color: #009BAA;
       color: #fff;
-      box-shadow: -8px 0px 25px -4px rgba(0,0,0,0.5);
   
       .title {
         // background: #003789;
-        background-image: url("../img/bg-tile-2x1.png");
-        background-size: cover;
+        background-image: url("../img/teachere.png");
+        background-size: 280px 60px;
+        background-repeat: no-repeat;
+        background-position: center;
         font-size: 30px;
-        padding: 20px 15px;
+        padding: 20px 20px;
+        margin-right: 5px;
         box-sizing: border-box;
         height: 80px;
         display: flex;
@@ -78,7 +79,8 @@
       // background-color: #fff;
   
       input {
-        margin: 20px 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
         padding: 10px;
         border-radius: 4px;
         width: calc(25% - 30px);
