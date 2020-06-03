@@ -43,6 +43,7 @@ export default {
       filterData: '', // used to store the custom filter input
       filteredItems: null,
       selectedContainer: null,
+      token: '',
 
       configDropdown: {
         options: [
@@ -86,6 +87,10 @@ export default {
     Api.getCourses().then(data => {
         this.courses = data;
         this.filteredCourses();
+    }),
+    Api.getAccessToken(this.$route.params.code).then(data => {
+      var access_token = JSON.parse(data)['access_token'];
+      localStorage.token = access_token;
     })
   }
 }
