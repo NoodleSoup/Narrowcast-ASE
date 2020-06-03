@@ -2,21 +2,22 @@
     display: grid;
     width: 100vw;
     height: 100vh;
-    background-color: #009aa0;
-    position: center;
+    background-color: #009AA0;
     text-align: center;
     color: #fff;
     display: inline-block;
+    position: absolute;
+
 }
 
 .login-fields{
+
     h1.title{
         text-align: center;
         color: #fff;
     }
 
     input.username {
-        margin-top: 15px;
         margin-bottom: 15px;
         padding: 10px;
         border: none;
@@ -53,9 +54,9 @@
 	left: 0;
 	right: 0;
     margin: auto;
-    width: 250px;
-    height: 100px;
-    position: fixed;
+    width: calc(100vw - 80%);
+    height: calc(100vh - 75%);
+    position: absolute;
     color: #fff;
     display: inline-block;
 }
