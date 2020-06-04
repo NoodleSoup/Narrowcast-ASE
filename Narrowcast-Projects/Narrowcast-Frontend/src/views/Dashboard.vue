@@ -2,6 +2,9 @@
   <div class="dashboard">
     <header>
       <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
+      <h1 class="test" v-text="returnAccountName()" />
+      <button class="test" type="submit" v-on:click="printUserData($event)">Test</button>
+      <button class="log-out" type="submit" v-on:click="logOut($event)">Logout</button>
     </header>
     <aside>
       <div class="title">
@@ -81,17 +84,52 @@ export default {
     },
     returnDisplayName(name) {
       return name.split('.').join(' ');
+    },
+    getCodeFromUri(){
+      let uri = window.location.search.substring(1);
+      let params = new URLSearchParams(uri);
+      return params.get("code");
+    },
+    printUserData(){
+      Api.getUserData().then(data => {
+        // eslint-disable-next-line
+        console.log(data);
+        alert(data['name']);
+      })
+    },
+    logOut(){
+      localStorage.removeItem('token');
+      window.location.href = `${window.location.origin}/`;
+    },
+    returnAccountName(){
+      Api.getUserData().then(data => {
+        return data['login'];
+      })
     }
   },
   mounted() {
     Api.getCourses().then(data => {
         this.courses = data;
         this.filteredCourses();
-    }),
-    Api.getAccessToken(this.$route.params.code).then(data => {
-      var access_token = JSON.parse(data)['access_token'];
-      localStorage.token = access_token;
     })
+  },
+  created(){
+    if (localStorage.token){
+      this.token = localStorage.token;
+      return
+    }
+    else{
+      Api.getAccessToken(this.getCodeFromUri()).then(data => {
+        let split_data = data.split('&');
+        let access_token = split_data[0].split('=')[1];
+        let scopes = split_data[1].split('=')[1];
+        let token_type = split_data[2].split('=')[1];
+        // eslint-disable-next-line
+        console.log(`Type: ${token_type} Scopes: ${scopes}`);
+        localStorage.token = access_token;
+        this.$router.replace('/home');
+      })
+    }
   }
 }
 </script>
