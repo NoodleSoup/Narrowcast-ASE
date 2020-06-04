@@ -9,8 +9,45 @@
       grid-row: 1;
       grid-column: 2;
       padding: 0 30px;
-      background-color: #009BAA;
+      background-color: transparentize($color: #009BAA, $amount: 1);
       color: white;
+      display: flex;
+
+      header.test{
+        position: fixed;
+        top: 20px;
+        right: 200px;
+      }
+
+      button.test{
+        position: fixed;
+        margin: 5px 5px;
+        padding: 5px;
+        border: none;
+        width: 50px;
+        height: 40px;
+        background-color: #005AA9;
+        color: #fff;
+        display: block;
+
+        top: 20px;
+        right: 80px;
+      }
+
+      button.log-out{
+        position: fixed;
+        margin: 5px 5px;
+        padding: 5px;
+        border: none;
+        width: 50px;
+        height: 40px;
+        background-color: #005AA9;
+        color: #fff;
+        display: block;
+
+        top: 20px;
+        right: 20px;
+      }
     }
   
     aside {
@@ -74,8 +111,6 @@
       overflow: auto;
       padding: 30px;
       box-sizing: border-box;
-      background-image: url('../img/bg-page.png');
-      background-size: cover;
       // background-color: #fff;
   
       input {
@@ -89,4 +124,6 @@
         box-sizing: border-box;
       }
     }
+    background-image: url('../img/bg-page.png');
+    background-size: cover;
   }
