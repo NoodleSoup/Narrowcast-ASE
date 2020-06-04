@@ -29,12 +29,13 @@ export default {
     loginGithubMethod(event){
       if(event) event.preventDefault();
 
-      var request = new this.$OAuth.Request({
+      let request = new this.$OAuth.Request({
+        scope: 'user:email',
         client_id: '1898318385df9c514c57',  // required
         redirect_uri: 'http://localhost:8080/home'
       });
 
-      var uri = this.$narrowcast.requestToken(request);
+      let uri = this.$narrowcast.requestToken(request);
 
       this.$narrowcast.remember(request);
       window.location.href = uri;
