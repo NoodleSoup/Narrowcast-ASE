@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
+import { LoginMS } from "../api/index";
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,14 @@ const routes = [
     }
   },
   {
+    path: '/account',
+    name: 'account-settings',
+    component: () => import('../views/Account-Settings.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     // Debugging mainly, might not be in the final release
     path: '/search',
     name: 'search',
@@ -40,9 +49,13 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)){
-    if (!localStorage.token && !to.query['code'] && !to.fullPath.includes('github')){
+    if (LoginMS.loggedIn) {
+      next();
+    }
+    else if (!localStorage.getItem('token') && !to.query['code'] && !to.fullPath.includes('github')){
       next({name: 'login'})
-    }else{
+    }
+    else{
       next();
     }
   }else{
