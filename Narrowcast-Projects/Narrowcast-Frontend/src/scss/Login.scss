@@ -21,6 +21,7 @@
         margin-bottom: 15px;
         padding: 10px;
         border: none;
+        border-radius: 4px;
         box-sizing: border-box;
         position: center;
         display: block;
@@ -38,16 +39,16 @@
         width: calc(100% - 10px);
     }
 
-    button.submit-button{
-        position: center;
-        margin-bottom: 15px;
-        padding: 10px;
-        border: none;
-        width: calc(100% - 10px);
-        background-color: #005AA9;
-        color: #fff;
-        display: block;
-    }
+    // button.submit-button{
+    //     position: center;
+    //     margin-bottom: 15px;
+    //     padding: 10px;
+    //     border: none;
+    //     width: calc(100% - 10px);
+    //     background-color: #005AA9;
+    //     color: #fff;
+    //     display: block;
+    // }
 
     top:calc(100px - 300px);
 	bottom: 0;
@@ -77,7 +78,7 @@
 
 .LogoTeach{
     display: grid;
-    background-image: url('../img/teachere.png');
+    background-image: url('../img/Teachere_logo_White.png');
     background-repeat: no-repeat;
     background-size: contain, cover;
 

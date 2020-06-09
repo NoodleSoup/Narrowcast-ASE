@@ -1,0 +1,43 @@
+.background-page {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 300px 1fr;
+    
+    header {
+        background-color: transparentize($color: #009BAA, $amount: 1);
+        color: white;
+    }
+    
+    background-image: url('../img/bg-page.png');
+    background-size: cover;
+      
+}
+
+.flex-box-2 {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.button {
+    background-color: #005AA9;
+    color: #fff;
+    display: block;
+}
+
+.button-main {
+    margin-left: 20px;
+    margin-top: 20px;
+    border: none;
+    width: 95px;
+    height: 35px;
+}
+
+.button-large {
+    position: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    width: calc(100% - 10px);
+}

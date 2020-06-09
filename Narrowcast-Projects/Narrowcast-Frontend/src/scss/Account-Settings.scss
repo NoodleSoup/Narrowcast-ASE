@@ -1,18 +1,4 @@
-.dashboard {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-rows: 80px 1fr;
-  grid-template-columns: 300px 1fr;
-
-  header {
-    grid-row: 1;
-    grid-column: 2;
-    padding: 0 30px;
-    color: white;
-    display: flex;
-  }
-
+.account-settings {
   aside {
     grid-row: 1 / 3;
     grid-column: 1; 
@@ -90,4 +76,24 @@
   // background-image: url('../img/bg-page.png');
   // background-size: cover;
 }
-  
+
+.AS-pageName {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.AS-TextSet {
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.AS-Dropdown{
+  width: 200px;
+  height: 25px;
+}
+
+.AS-MidLine{
+  border: 1px solid rgba(#fff, 0.4);
+  border-radius: 5px;
+  margin-bottom: 50px;
+}
