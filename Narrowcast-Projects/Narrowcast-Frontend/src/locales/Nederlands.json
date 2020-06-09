@@ -1,0 +1,30 @@
+{
+    "main":{
+        "logout": "Uitloggen",
+        "accountSettings": "Account instellingen",
+        "dashboard": "Hoofdpagina"
+    },
+    "login": {
+        "loginName": "Welkom op de login pagina",
+        "username": "Gebruikersnaam",
+        "password": "Wachtwoord"
+    },
+    "dashboard": {
+        "filterCourses": "Filter opleidingen",
+        "filterTerm": "Zoekterm",
+        "dropdown": {
+            "firstname": "Voornaam",
+            "lastname": "Achternaam",
+            "email": "E-Mail",
+            "phonenumber": "Telefoon nummer",
+            "location": "Locatie",
+            "prefix": "Zoek op",
+            "placeholder": "Voornaam"
+        }
+    },
+    "account-settings": {
+        "pageName": "Account instellingen",
+        "languageChange": "Taal instellingen",
+        "studyChoice": "Opleiding Keuze"
+    }
+}

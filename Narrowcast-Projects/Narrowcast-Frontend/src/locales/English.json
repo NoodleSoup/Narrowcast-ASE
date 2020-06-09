@@ -1,0 +1,30 @@
+{
+    "main":{
+        "logout": "Logout",
+        "accountSettings": "Account settings",
+        "Dashboard": "Dashboard"
+    },
+    "login": {
+        "loginName": "Welcome to the login page",
+        "username": "Username",
+        "password": "Password"
+    },
+    "dashboard": {
+        "filterCourses": "Filter courses",
+        "filterTerm": "Filter",
+        "dropdown": {
+            "firstname": "Firstname",
+            "lastname": "Lastname",
+            "email": "E-Mail",
+            "phonenumber": "Phone number",
+            "location": "Location",
+            "prefix": "Search on",
+            "placeholder": "Firstname"
+        }
+    },
+    "account-settings": {
+        "pageName": "Account settings",
+        "languageChange": "Language settings",
+        "studyChoice": "Study Choice"
+    }
+}
