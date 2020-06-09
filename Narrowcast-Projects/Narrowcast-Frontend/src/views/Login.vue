@@ -2,11 +2,12 @@
   <div class="login">
     <main>
       <div class="login-fields">
-        <h1 class="title">{{title}}</h1>
-        <input class="username" type="text" placeholder="Username" />
-        <input class="password" type="password" placeholder="Password" />
-        <button class="submit-button" type="submit">{{buttonText}}</button>
-        <button class="submit-button" type="button" v-on:click="loginGithubMethod($event)">{{loginGithub}}</button>
+        <h1 class="title">{{ $t('login.loginName') }}</h1>
+        <input class="username" type="text" v-bind:placeholder="$t('login.username')" />
+        <input class="password" type="password" v-bind:placeholder="$t('login.password')" />
+        <button class="button button-large" type="submit">{{buttonText}}</button>
+        <button class="button button-large" type="button" v-on:click="loginGithubMethod($event)">{{loginGithub}}</button>
+        <button class="button button-large" type="button" v-on:click="loginMSMethod($event)">{{loginMS}}</button>
       </div>
       <div class="LogoNHL"></div>
       <div class="LogoTeach"></div>
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import { Login, LoginMS } from "../api/index";
 export default {
   name: 'login',
   data() {
@@ -22,28 +24,26 @@ export default {
       title: 'Login',
       buttonText: 'Login',
       loginGithub: 'GitHub',
+      loginMS: 'Microsoft',
       token: ''
     }
   },
   methods: {
     loginGithubMethod(event){
-      if(event) event.preventDefault();
-
-      let request = new this.$OAuth.Request({
-        scope: 'user:email',
-        client_id: '1898318385df9c514c57',  // required
-        redirect_uri: 'http://localhost:8080/home'
-      });
-
-      let uri = this.$narrowcast.requestToken(request);
-
-      this.$narrowcast.remember(request);
-      window.location.href = uri;
+      Login.loginGithub(event)
+    },
+    loginMSMethod(event){
+      LoginMS.login(event)
     }
+  },
+  created(){
+    Login.getTokenExpiry(),
+    LoginMS.loggedIn()
   }
 }
 </script>
 
 <style lang="scss" scoped>
   @import "@/scss/Login.scss";
+  @import "@/scss/Main.scss";
 </style>

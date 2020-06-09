@@ -1,16 +1,18 @@
 <template>
-  <div class="dashboard">
-    <header>
+  <div class="dashboard background-page">
+    <header class="flex-box-2">
       <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
-      <h1 class="test" v-text="returnAccountName()" />
-      <button class="test" type="submit" v-on:click="printUserData($event)">Test</button>
-      <button class="log-out" type="submit" v-on:click="logOut($event)">Logout</button>
+      <h1 v-if="loginMethod() === 'github'" class="test" v-text="returnAccountName()" />
+      <button class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
+      <button class="button button-main" type="submit" v-on:click="switchPage('account')">{{ $t('main.accountSettings') }}</button>
+      <button class="button button-main" type="submit" v-on:click="switchPage('presence')"></button>
+      <button class="button button-main" type="submit" v-on:click="switchPage('logout')">{{ $t('main.logout') }}</button>
     </header>
     <aside>
       <div class="title">
         <span>{{pageTitle}}</span>
       </div>
-      <input v-model="filterTerm" type="text" placeholder="Filter opleidingen" :disabled="courses === null"/>
+      <input v-model="filterTerm" type="text" v-bind:placeholder="$t('dashboard.filterCourses')" :disabled="courses === null"/>
       <ul>
         <li v-for="(courses, index) in filteredItems" :key="index">
           <a href="#" @click="selectContainer(courses.courseName, $event)" :class="[courses.courseName === selectedContainer ? 'active' : '']">{{returnDisplayName(courses.courseName)}}</a>
@@ -19,7 +21,7 @@
     </aside>
     <main>
       <vue-dropdown v-if="selectedContainer !== null" :config="configDropdown" @setSelectedOption="setNewSelectedOption($event)"></vue-dropdown>
-      <input v-if="selectedContainer !== null" v-model="filterDataTerm" type="text" placeholder="Zoekterm" :disabled="selectedContainer === null" v-on:input="selectData(filterDataTerm, $event)" />
+      <input v-if="selectedContainer !== null" v-model="filterDataTerm" type="text" v-bind:placeholder="$t('dashboard.filterTerm')" :disabled="selectedContainer === null" v-on:input="selectData(filterDataTerm, $event)" />
       <List :name="selectedContainer" :filter="filterData" :filterby="filterByData" />
     </main>
   </div>
@@ -27,7 +29,7 @@
 
 <script>
 import VueDropdown from 'vue-dynamic-dropdown'
-import Api from '@/api/api.js'
+import { Api, graphConfig, Login, LoginMS } from '@/api/index.js'
 import { List } from '@/components/common'
 
 export default {
@@ -50,11 +52,11 @@ export default {
 
       configDropdown: {
         options: [
-          {text: 'Voornaam', value: 'teacherFirst'},{text: 'Achternaam', value: 'teacherLast'},{text: 'E-Mail', value: 'eMail'},
-          {text: 'Telefoon nummer', value: 'phoneNumber'},{text: 'Locatie', value: 'classLocation'}
+          {text: this.$t('dashboard.dropdown.firstname'), value: 'teacherFirst'},{text: this.$t('dashboard.dropdown.lastname'), value: 'teacherLast'},{text: this.$t('dashboard.dropdown.email'), value: 'eMail'},
+          {text: this.$t('dashboard.dropdown.phonenumber'), value: 'phoneNumber'},{text: this.$t('dashboard.dropdown.location'), value: 'classLocation'}
         ],
-        prefix: 'Zoek op',
-        placeholder: 'Voornaam'
+        prefix: this.$t('dashboard.dropdown.prefix'),
+        placeholder: this.$t('dashboard.dropdown.placeholder')
         // setting hover text color and text background needs to be set in the vue-dynamic-dropdown module
       }
     }
@@ -91,20 +93,66 @@ export default {
       return params.get("code");
     },
     printUserData(){
-      Api.getUserData().then(data => {
+      // Api.getUserData().then(data => {
+      //   // eslint-disable-next-line
+      //   console.log(data);
+      //   alert(data['name']);
+      // })
+      LoginMS.getTokenPopup()
+      .then(token => {
+        LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+        .then(data => {
+          // eslint-disable-next-line
+          console.log(data)
+          alert(data['displayName'])
+        }).catch(error => {
+          // eslint-disable-next-line
+          console.log(error)
+        })
+      }).catch(error => {
         // eslint-disable-next-line
-        console.log(data);
-        alert(data['name']);
-      })
+        console.log(error)
+      });
+    },
+    alertProfile(data){
+      // eslint-disable-next-line
+      console.log(data);
+      alert(data['displayName'])
     },
     logOut(){
       localStorage.removeItem('token');
-      window.location.href = `${window.location.origin}/`;
+      if (LoginMS.loggedIn) LoginMS.logOut();
+      this.$router.push('/');
     },
     returnAccountName(){
       Api.getUserData().then(data => {
         return data['login'];
       })
+    },
+    switchPage(page){
+      var route = '/';
+
+      switch(page) {
+        case "account":
+          route = '/account';
+          break;
+        case "dashboard":
+          route = '/home';
+          break;
+        case "logout":
+          this.logOut()
+          break;
+        case "presence":
+          route = '/presence';
+          break;
+        default:
+          route = '/'
+      }
+      this.$router.push(route);
+    },
+    loginMethod(){
+      if (LoginMS.loggedIn) return 'ms';
+      return 'github';
     }
   },
   mounted() {
@@ -112,21 +160,26 @@ export default {
         this.courses = data;
         this.filteredCourses();
     })
+    if (Login.getTokenExpiry()) this.$router.push('/')
   },
   created(){
-    if (localStorage.token){
-      this.token = localStorage.token;
+    if (localStorage.getItem('token')){
+      this.token = localStorage.getItem('token');
       return
     }
     else{
-      Api.getAccessToken(this.getCodeFromUri()).then(data => {
+      Login.getAccessToken(this.getCodeFromUri()).then(data => {
         let split_data = data.split('&');
-        let access_token = split_data[0].split('=')[1];
+        const date = new Date()
+        const access_token = {
+          value: split_data[0].split('=')[1],
+          expiry: date.getTime() + 300000 // set token expiry to 5 minutes
+        }
         let scopes = split_data[1].split('=')[1];
         let token_type = split_data[2].split('=')[1];
         // eslint-disable-next-line
         console.log(`Type: ${token_type} Scopes: ${scopes}`);
-        localStorage.token = access_token;
+        localStorage.setItem('token', JSON.stringify(access_token));
         this.$router.replace('/home');
       })
     }
@@ -136,4 +189,5 @@ export default {
 
 <style lang="scss" scoped>
   @import "@/scss/Dashboard.scss";
+  @import "@/scss/Main.scss";
 </style>
