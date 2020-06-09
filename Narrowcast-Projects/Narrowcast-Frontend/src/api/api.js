@@ -2,6 +2,7 @@ import axios from "axios";
 import { Base } from "./index";
 
 export default {
+    // backend
     getCourses() {
         return new Promise((resolve, reject) => {
             axios.get(`${Base.apiUrl}/courses`)
@@ -12,6 +13,7 @@ export default {
                 });
         });
     },
+    // backend
     getCourse(name) {
         return new Promise((resolve, reject) => {
             axios.get(`${Base.apiUrl}/courses/list?course=${name}`)
@@ -22,32 +24,20 @@ export default {
                 });
         });
     },
-    getAccessToken(code){
-        return new Promise((resolve, reject) => {
-            axios.post('https://cors-anywhere.herokuapp.com/'+'https://github.com/login/oauth/access_token', {
-                client_id: '1898318385df9c514c57',
-                client_secret: '0ddfa337f38c62f58200ceda964521fb54a4435a',
-                code: code,
-                credentials: 'omit',
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'POST'}})
-                .then(data => {
-                    resolve(data.data);
-                }).catch(error => {
-                    reject(error);
-                });
-        });
-    },
+    // Github
     getUserData(){
         return new Promise((resolve, reject) => {
-            axios.get('https://api.github.com/user', {
+            axios.get(Base.apiExternalUrl, {
                 headers:{
-                    'Authorization': `token ${localStorage.token}`
+                    'Authorization': `token ${JSON.parse(localStorage.getItem('token')).value}`
                 }
             }).then(data => {
                 resolve(data.data);
             }).catch(error => {
+                if (error.response.status == 401){
+                    // token outdated, remove it to update
+                    localStorage.removeItem('token');
+                }
                 reject(error);
             })
         })
