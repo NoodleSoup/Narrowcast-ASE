@@ -2,20 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
-
-let OAuth = require('@zalando/oauth2-client-js');
-let narrowcast = new OAuth.Provider({
-  id: 'narrowcast',   // required
-  authorization_url: 'https://github.com/login/oauth/authorize' // required
-});
-
-Vue.prototype.$narrowcast = narrowcast
-Vue.prototype.$OAuth = OAuth
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
