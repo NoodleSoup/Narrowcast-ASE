@@ -34,3 +34,5 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 develop.json
+Narrowcast-Projects/Narrowcast.Api/Properties/launchSettings.json
+Narrowcast-Projects/MySQL-dockerdb/Properties/launchSettings.json
