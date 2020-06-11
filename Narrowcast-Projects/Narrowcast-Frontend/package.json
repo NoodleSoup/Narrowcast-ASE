@@ -13,6 +13,7 @@
     "core-js": "^3.3.2",
     "jso": "^4.1.1",
     "msal": "^1.3.1",
+    "underscore": "^1.10.2",
     "vue": "^2.6.10",
     "vue-dropdowns": "^1.1.1",
     "vue-dynamic-dropdown": "^1.0.12",

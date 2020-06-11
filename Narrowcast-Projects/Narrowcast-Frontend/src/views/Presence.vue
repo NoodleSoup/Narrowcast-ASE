@@ -136,25 +136,9 @@ export default {
 
   },
   created(){
-    if (localStorage.getItem('token')){
-      this.token = localStorage.getItem('token');
+    if (sessionStorage.getItem('token')){
+      this.token = sessionStorage.getItem('token');
       return
-    }
-    else{
-      Login.getAccessToken(this.getCodeFromUri()).then(data => {
-        let split_data = data.split('&');
-        const date = new Date()
-        const access_token = {
-          value: split_data[0].split('=')[1],
-          expiry: date.getTime() + 300000 // set token expiry to 5 minutes
-        }
-        let scopes = split_data[1].split('=')[1];
-        let token_type = split_data[2].split('=')[1];
-        // eslint-disable-next-line
-        console.log(`Type: ${token_type} Scopes: ${scopes}`);
-        localStorage.setItem('token', JSON.stringify(access_token));
-        this.$router.replace('/home');
-      })
     }
   }
 }

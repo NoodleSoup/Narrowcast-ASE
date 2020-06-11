@@ -24,22 +24,48 @@ export default {
                 });
         });
     },
+    setCourse(name){
+        return new Promise((resolve, reject) => {
+            axios.post(`${Base.apiUrl}/courses/list?course=${name}`)
+                .then(data => {
+                    resolve(data.data);
+                }).catch(error => {
+                    reject(error);
+                });
+        });
+    },
     // Github
     getUserData(){
         return new Promise((resolve, reject) => {
             axios.get(Base.apiExternalUrl, {
                 headers:{
-                    'Authorization': `token ${JSON.parse(localStorage.getItem('token')).value}`
+                    'Authorization': `token ${JSON.parse(sessionStorage.getItem('token')).value}`
                 }
             }).then(data => {
                 resolve(data.data);
             }).catch(error => {
                 if (error.response.status == 401){
                     // token outdated, remove it to update
-                    localStorage.removeItem('token');
+                    sessionStorage.removeItem('token');
                 }
                 reject(error);
             })
+        })
+    },
+    /* eslint-disable */
+    addMsIdToDB(id){
+        axios.post(`${Base.apiUrl}/account/id`, {
+            data: {
+                'id': `${id}`,
+                'type': 'student'
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
         })
     }
 }

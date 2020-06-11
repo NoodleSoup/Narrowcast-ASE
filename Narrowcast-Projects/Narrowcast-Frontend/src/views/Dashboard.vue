@@ -2,7 +2,6 @@
   <div class="dashboard background-page">
     <header class="flex-box-2">
       <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
-      <h1 v-if="loginMethod() === 'github'" class="test" v-text="returnAccountName()" />
       <button class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
       <button class="button button-main" type="submit" v-on:click="switchPage('account')">{{ $t('main.accountSettings') }}</button>
       <button class="button button-main" type="submit" v-on:click="switchPage('presence')"></button>
@@ -29,7 +28,7 @@
 
 <script>
 import VueDropdown from 'vue-dynamic-dropdown'
-import { Api, graphConfig, Login, LoginMS } from '@/api/index.js'
+import { Api, graphConfig, Login, LoginMS } from '../api/index'
 import { List } from '@/components/common'
 
 export default {
@@ -90,44 +89,38 @@ export default {
     getCodeFromUri(){
       let uri = window.location.search.substring(1);
       let params = new URLSearchParams(uri);
-      return params.get("code");
+      return params.get('code');
     },
     printUserData(){
-      // Api.getUserData().then(data => {
-      //   // eslint-disable-next-line
-      //   console.log(data);
-      //   alert(data['name']);
-      // })
-      LoginMS.getTokenPopup()
-      .then(token => {
-        LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
-        .then(data => {
+      if (this.loginMethod() == 'github'){
+        Api.getUserData().then(data => {
           // eslint-disable-next-line
-          console.log(data)
-          alert(data['displayName'])
+          console.log(data);
+          alert(data['name']);
+        })
+      }else{
+        LoginMS.getTokenPopup()
+        .then(token => {
+          LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+          .then(data => {
+            // eslint-disable-next-line
+            console.log(data)
+            Api.addMsIdToDB(data['id']);
+            alert(data['displayName'])
+          }).catch(error => {
+            // eslint-disable-next-line
+            console.log(error)
+          })
         }).catch(error => {
           // eslint-disable-next-line
           console.log(error)
-        })
-      }).catch(error => {
-        // eslint-disable-next-line
-        console.log(error)
-      });
-    },
-    alertProfile(data){
-      // eslint-disable-next-line
-      console.log(data);
-      alert(data['displayName'])
+        });
+      }
     },
     logOut(){
-      localStorage.removeItem('token');
-      if (LoginMS.loggedIn) LoginMS.logOut();
+      if (sessionStorage.getItem('token')) sessionStorage.removeItem('token');
+      if (LoginMS.loggedIn()) LoginMS.logOut();
       this.$router.push('/');
-    },
-    returnAccountName(){
-      Api.getUserData().then(data => {
-        return data['login'];
-      })
     },
     switchPage(page){
       var route = '/';
@@ -151,7 +144,7 @@ export default {
       this.$router.push(route);
     },
     loginMethod(){
-      if (LoginMS.loggedIn) return 'ms';
+      if (LoginMS.loggedIn()) return 'ms';
       return 'github';
     }
   },
@@ -163,8 +156,8 @@ export default {
     if (Login.getTokenExpiry()) this.$router.push('/')
   },
   created(){
-    if (localStorage.getItem('token')){
-      this.token = localStorage.getItem('token');
+    if (sessionStorage.getItem('token')){
+      this.token = sessionStorage.getItem('token');
       return
     }
     else{
@@ -175,12 +168,10 @@ export default {
           value: split_data[0].split('=')[1],
           expiry: date.getTime() + 300000 // set token expiry to 5 minutes
         }
-        let scopes = split_data[1].split('=')[1];
-        let token_type = split_data[2].split('=')[1];
-        // eslint-disable-next-line
-        console.log(`Type: ${token_type} Scopes: ${scopes}`);
-        localStorage.setItem('token', JSON.stringify(access_token));
-        this.$router.replace('/home');
+        if (access_token.value !== 'bad_verification_code') {
+          sessionStorage.setItem('token', JSON.stringify(access_token));
+          this.$router.replace('/home');
+        }
       })
     }
   }

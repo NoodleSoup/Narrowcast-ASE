@@ -30,7 +30,7 @@ export default {
                 console.log(error)
             } else if (response) {
                 // eslint-disable-next-line
-                console.log('test')
+                console.log(response)
             }
         });
 
@@ -43,19 +43,18 @@ export default {
             .catch(err => {
                 // eslint-disable-next-line
                 console.log(err)
-                if (localStorage.getItem('msal.idtoken')) {
+                if (sessionStorage.getItem('msal.idtoken')) {
                     let key;
-                    for (key in localStorage) {
+                    for (key in sessionStorage) {
                         // eslint-disable-next-line
                         console.log(key)
-                        if (key.startsWith('msal')) localStorage.removeItem(key)
+                        if (key.startsWith('msal')) sessionStorage.removeItem(key)
                     }
                 }
             });
     },
     loggedIn(){
-        if (msalInstance.getAccount()) return true;
-        return false;
+        return msalInstance.getAccount() === null ? false : true
     },
     logOut(){
         msalInstance.logout();

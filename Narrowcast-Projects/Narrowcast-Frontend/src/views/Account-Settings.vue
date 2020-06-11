@@ -25,7 +25,7 @@
       <!-- Study Choice -->
       <h3 class="AS-TextSet">{{ $t('account-settings.studyChoice')}}</h3>
       <select class="AS-Dropdown">
-        <option></option>
+        <option v-for="(course, i) in courses" :key="`Course${i}`" :value="course">{{ course.courseName }}</option>
       </select>
 
       <!-- Personal Settings -->
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Api from '@/api/api.js'
+import { Api, Login } from '@/api/index.js'
 
 export default {
   name: 'account-settings',
@@ -85,7 +85,7 @@ export default {
       return params.get("code");
     },
     printUserData(){
-      Api.getUserData().then(data => {
+      Login.getUserData().then(data => {
         // eslint-disable-next-line
         console.log(data);
         alert(data['name']);
@@ -96,7 +96,7 @@ export default {
       window.location.href = `${window.location.origin}/`;
     },
     returnAccountName(){
-      Api.getUserData().then(data => {
+      Login.getUserData().then(data => {
         return data['login'];
       })
     },
@@ -143,32 +143,16 @@ export default {
   },
   mounted() {
     Api.getCourses().then(data => {
-        this.courses = data;
-        this.filteredCourses();
+      this.courses = data;
+      this.filteredCourses();
     })
     this.getTokenExpiry();
 
   },
   created(){
-    if (localStorage.getItem('token')){
-      this.token = localStorage.getItem('token');
+    if (sessionStorage.getItem('token')){
+      this.token = sessionStorage.getItem('token');
       return
-    }
-    else{
-      Api.getAccessToken(this.getCodeFromUri()).then(data => {
-        let split_data = data.split('&');
-        const date = new Date()
-        const access_token = {
-          value: split_data[0].split('=')[1],
-          expiry: date.getTime() + 300000 // set token expiry to 5 minutes
-        }
-        let scopes = split_data[1].split('=')[1];
-        let token_type = split_data[2].split('=')[1];
-        // eslint-disable-next-line
-        console.log(`Type: ${token_type} Scopes: ${scopes}`);
-        localStorage.setItem('token', JSON.stringify(access_token));
-        this.$router.replace('/home');
-      })
     }
   }
 }

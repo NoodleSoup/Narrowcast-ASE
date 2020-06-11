@@ -49,10 +49,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)){
-    if (LoginMS.loggedIn) {
+    if (LoginMS.loggedIn()) {
       next();
     }
-    else if (!localStorage.getItem('token') && !to.query['code'] && !to.fullPath.includes('github')){
+    else if (!sessionStorage.getItem('token') && !to.query['code'] && !to.fullPath.includes('github')){
       next({name: 'login'})
     }
     else{
@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.hideForAuth)) {
-    if (localStorage.token) {
+    if (sessionStorage.getItem('token')) {
       next({ name: 'home' })
     } else {
       next();

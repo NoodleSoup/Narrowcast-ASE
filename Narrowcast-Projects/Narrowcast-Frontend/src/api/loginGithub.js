@@ -24,7 +24,7 @@ export default {
         window.location.href = uri;
     },
     getTokenExpiry() {
-        const itemStr = localStorage.getItem('token')
+        const itemStr = sessionStorage.getItem('token')
         // if the item doesn't exist, return null
         if (!itemStr) {
             return null
@@ -35,7 +35,7 @@ export default {
         if (now.getTime() > item.expiry) {
             // If the item is expired, delete the item from storage
             // and return null
-            localStorage.removeItem('token')
+            sessionStorage.removeItem('token')
             return true;
         }
         return false;
