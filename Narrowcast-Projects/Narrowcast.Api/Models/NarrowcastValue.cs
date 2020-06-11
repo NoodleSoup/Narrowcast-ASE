@@ -6,13 +6,6 @@
     public class NarrowcastValue
     {
         /// <summary>
-        /// Primary key van de database die gekoppeld is aan de
-        /// applicatie.
-        /// </summary>
-        /// <value>Integer</value>
-        public int narrowcastNr { get; set; }
-
-        /// <summary>
         /// Voornaam van de docent.
         /// </summary>
         /// <value>String</value>

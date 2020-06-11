@@ -83,13 +83,43 @@ namespace Narrowcast.Api.Repositories
         public async Task<IEnumerable<NarrowcastValue>> GetNarrowcastByCourse(string course)
         {
             var result = await _connection.QueryAsync<NarrowcastValue>(
-                @"SELECT *
+                @"SELECT
+                        teacherFirst,
+                        teacherLast,
+                        courseName,
+                        courseID,
+                        eMail,
+                        phoneNumber,
+                        teacherPresent,
+                        classLocation,
+                        teacherReachable,
+                        updateDate
                 FROM narrowcast
                 WHERE courseName = @course
                 ORDER BY updateDate DESC;",
                 new { course });
 
             return result;
+        }
+
+        /// <summary>
+        /// Add account ID into the DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="accountType"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        public async Task<int> AddIdToDb(string id, string accountType)
+        {
+            var result = await _connection.ExecuteAsync(
+                @"INSERT INTO
+                        AccountIDs (accountId, accountType)
+                VALUES (@id, @accountType);",
+                new { id, accountType });
+
+            return result;
+
         }
     }
 }

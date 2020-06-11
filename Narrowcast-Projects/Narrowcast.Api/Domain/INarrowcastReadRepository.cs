@@ -36,5 +36,15 @@ namespace Narrowcast.Api.Domain
         /// <param name="course"></param>
         /// <returns>Image/Container info per service</returns>
         Task<IEnumerable<NarrowcastValue>> GetNarrowcastByCourse(string course);
+
+        /// <summary>
+        /// Add account ID into the DB
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="accountType"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        Task<int> AddIdToDb(string accountId, string accountType);
     }
 }

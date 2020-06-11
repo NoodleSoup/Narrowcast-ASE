@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Narrowcast.Api.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Narrowcast.Api.Controllers
 {
@@ -70,6 +73,22 @@ namespace Narrowcast.Api.Controllers
         public async Task<IActionResult> GetNarrowcastByCourse([FromQuery(Name = "course")]string course = "%")
         {
             var result = await _narrowcastRead.GetNarrowcastByCourse(course);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Endpoint to add account ID to the Database
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        [HttpPost("account/id")]
+        public async Task<IActionResult> AddId([FromBody]Account account)
+        {
+            // For debugging
+            Console.WriteLine($"\n\n\n\nGot ID: {account.data.id} Type: {account.data.type}\n\n\n\n");
+            var result = await _narrowcastRead.AddIdToDb(account.data.id, account.data.type);
             return Ok(result);
         }
     }

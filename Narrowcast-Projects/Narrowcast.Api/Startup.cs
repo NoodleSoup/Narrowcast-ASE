@@ -47,6 +47,8 @@ namespace Narrowcast.Api
                 options.AddPolicy("AllowAllOrigins", builder =>
                 {
                     builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
                 }));
 
             // Add healthcheck to service configuration
