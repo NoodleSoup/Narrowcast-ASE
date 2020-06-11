@@ -20,6 +20,20 @@
             "location": "Location",
             "prefix": "Search on",
             "placeholder": "Firstname"
+        },
+        "table": {
+            "teacherFirst": "Firstname",
+            "teacherLast": "Lastname",
+            "courseName": "Course",
+            "courseID": "Course ID",
+            "eMail": "E-Mail",
+            "phoneNumber": "Phone number",
+            "teacherPresent": "Teacher present",
+            "classLocation": "Where",
+            "teacherReachable": "Reachable",
+            "updateDate": "Last updated",
+            "true": "Yes",
+            "false": "No"
         }
     },
     "account-settings": {

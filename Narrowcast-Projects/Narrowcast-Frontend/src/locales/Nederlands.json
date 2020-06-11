@@ -2,7 +2,7 @@
     "main":{
         "logout": "Uitloggen",
         "accountSettings": "Account instellingen",
-        "dashboard": "Hoofdpagina"
+        "Dashboard": "Hoofdpagina"
     },
     "login": {
         "loginName": "Welkom op de login pagina",
@@ -20,6 +20,20 @@
             "location": "Locatie",
             "prefix": "Zoek op",
             "placeholder": "Voornaam"
+        },
+        "table": {
+            "teacherFirst": "Voornaam",
+            "teacherLast": "Achternaam",
+            "courseName": "Opleiding",
+            "courseID": "Opleiding ID",
+            "eMail": "E-Mail",
+            "phoneNumber": "Telefoon nummer",
+            "teacherPresent": "Docent aanwezig",
+            "classLocation": "Waar",
+            "teacherReachable": "Bereikbaar",
+            "updateDate": "Laatst geupdate",
+            "true": "Ja",
+            "false": "Nee"
         }
     },
     "account-settings": {

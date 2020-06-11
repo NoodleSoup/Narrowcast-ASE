@@ -3,7 +3,7 @@
     <div class="table-wrapper" v-if="categories !== null">
       <table>
         <thead>
-          <th v-for="(category, index) in categories" :key="index" v-text="category" v-show="showColumn(category)"></th>
+          <th v-for="(category, index) in categoriesHead" :key="index" v-text="category" v-show="showColumn(category)"></th>
         </thead>
         <tbody>
           <tr v-for="(container, index) in containers" :key="index">
@@ -17,6 +17,7 @@
 
 <script>
 import Api from '@/api/api.js'
+import _ from 'underscore'
 
 export default {
   name: 'service',
@@ -27,6 +28,7 @@ export default {
       services: null,
       containers: null,
       categories: null,
+      categoriesHead: [],
       search: ''
     }
   },
@@ -48,16 +50,23 @@ export default {
   },
   methods: {
     showColumn(category) {
-      if(category === 'courseName' || category === 'courseID') {
-        return false
-      }
+      if(_.contains([this.$t('dashboard.table.courseName'), 'courseName', this.$t('dashboard.table.courseID'), 'courseID'], category)) return false;
       return true
     },
     getNarrowcastData() {
       Api.getCourse(this.name).then(data => {
-          this.categories = Object.keys(data[0]);
-          this.services = data;
-          this.filterNarrowcastData();
+        this.categories = Object.keys(data[0]);
+        this.categoriesHead = Object.keys(data[0]);
+        this.categoriesHead.forEach((item, index) => {
+          this.categoriesHead[index] = this.$t(`dashboard.table.${item}`)
+        });
+        this.services = data;
+        // eslint-disable-next-line
+        this.services.forEach((item, index) => {
+          this.services[index].teacherPresent = this.services[index].teacherPresent === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
+          this.services[index].teacherReachable = this.services[index].teacherReachable === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
+        });
+        this.filterNarrowcastData();
       })
     },
     filterNarrowcastData(){
