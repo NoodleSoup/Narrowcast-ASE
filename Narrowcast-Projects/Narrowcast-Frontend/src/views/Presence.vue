@@ -2,7 +2,6 @@
   <div class="dashboard background-page">
     <header>
       <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
-      <h1 class="test" v-text="returnAccountName()" />
       <button class="button button-main test" type="submit" v-on:click="printUserData($event)">Test</button>
       <button class="button button-main log-out" type="submit" v-on:click="logOut($event)">{{ $t('main.logout') }}</button>
       <button class="button button-main account-set" type="submit" v-on:click="getAccountSettings()">{{ $t('main.accountSettings') }}</button>
@@ -28,7 +27,7 @@
 
 <script>
 import VueDropdown from 'vue-dynamic-dropdown'
-import { Api, Login } from '@/api/index.js'
+import { Api } from '@/api/index.js'
 import { List } from '@/components/common'
 
 export default {
