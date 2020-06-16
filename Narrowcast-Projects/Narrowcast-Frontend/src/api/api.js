@@ -67,5 +67,59 @@ export default {
         }).catch(error => {
             console.log(error)
         })
+    },
+    getAccountType(id){
+        return new Promise((resolve, reject) =>{
+            axios.get(`${Base.apiUrl}/account/type`, {
+                params: {
+                    'id': `${id}`
+                }
+            }).then(data => {
+                resolve(data.data);
+            }).catch(error => {
+                if (error.response.status == 401) {
+                    // token outdated, remove it to update
+                    sessionStorage.removeItem('token');
+                }
+                reject(error);
+            })
+        })
+    },
+    getAccountData(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${Base.apiUrl}/account/data`, {
+                params: {
+                    'id': `${id}`
+                }
+            }).then(data => {
+                resolve(data.data);
+            }).catch(error => {
+                if (error.response.status == 401) {
+                    // token outdated, remove it to update
+                    sessionStorage.removeItem('token');
+                }
+                reject(error);
+            })
+        })
+    },
+    setAccountData(eMail, phone, present, reachable, id){
+        axios.post(`${Base.apiUrl}/account/data`, {
+            data: {
+                'eMail': `${eMail}`,
+                'phoneNumber': `${phone}`,
+                'teacherPresent': present,
+                'teacherReachable': reachable,
+                'accountId': `${id}`
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            // eslint-disable-next-line
+            console.log(response);
+        }).catch(error => {
+            // eslint-disable-next-line
+            console.log(error);
+        })
     }
 }
