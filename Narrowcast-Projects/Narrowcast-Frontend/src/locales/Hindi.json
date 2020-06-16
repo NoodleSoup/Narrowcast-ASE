@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "लॉगआउट",
+        "accountSettings": "एकाउंट सेटिंग्स",
+        "Dashboard": "डैशबोर्ड",
+        "presence": "प्रेजेंस"
+    },
+    "login": {
+        "loginName": "लॉगिन पेज में स्वागत है",
+        "username": "यूजरनेम",
+        "password": "पासवर्ड"
+    },
+    "dashboard": {
+        "filterCourses": "फिल्टर कोर्सेज",
+        "filterTerm": "Filter",
+        "dropdown": {
+            "firstname": "नाम",
+            "lastname": "उपनाम",
+            "email": "ईमेल",
+            "phonenumber": "फोन नंबर",
+            "location": "स्थान",
+            "prefix": "सर्च ऑन",
+            "placeholder": "नाम"
+        },
+        "table": {
+            "teacherFirst": "नाम",
+            "teacherLast": "उपनाम",
+            "courseName": "कोर्स",
+            "courseID": "कोर्स इड",
+            "eMail": "ईमेल",
+            "phoneNumber": "फोन नंबर",
+            "teacherPresent": " वर्तमान अध्यापक",
+            "classLocation": "कंहा",
+            "teacherReachable": "पहुंच योग्य",
+            "updateDate": " आखरी अपडेट",
+            "true": "हां",
+            "false": "नहीं"
+        }
+    },
+    "account-settings": {
+        "pageName": "एकाउंट सेटिंग्स",
+        "languageChange": "भाषा सेटिंग्स",
+        "studyChoice": "अध्ययन का विकल्प",
+        "genInfo": "सामान्य सेटिंग्स",
+        "accountInfo": "खाते की जानकारी",
+        "submit": "प्रस्तुत करें"
+    }
+}

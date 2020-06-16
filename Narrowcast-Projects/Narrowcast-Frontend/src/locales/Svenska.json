@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "Logga ut",
+        "accountSettings": "Konto inställningar",
+        "Dashboard": "Instrumentbräda",
+        "presence": "Närvaro"
+    },
+    "login": {
+        "loginName": "Välkommen. Logga in",
+        "username": "Användarnamn",
+        "password": "Lösenord"
+    },
+    "dashboard": {
+        "filterCourses": "Filterkurser",
+        "filterTerm": "Filter",
+        "dropdown": {
+            "firstname": "Förnamn",
+            "lastname": "Efternamn",
+            "email": "E-post",
+            "phonenumber": "Telefon nummer",
+            "location": "Plats",
+            "prefix": "Söka på",
+            "placeholder": "Förnamn"
+        },
+        "table": {
+            "teacherFirst": "Förnamn",
+            "teacherLast": "Efternamn",
+            "courseName": "Kurs",
+            "courseID": "Kurs ID",
+            "eMail": "E-post",
+            "phoneNumber": "Telefon nummer",
+            "teacherPresent": "Lärare på plats",
+            "classLocation": "Var",
+            "teacherReachable": "Kontaktbar",
+            "updateDate": "Senast uppdaterad",
+            "true": "Ja",
+            "false": "Nej"
+        }
+    },
+    "account-settings": {
+        "pageName": "Konto inställningar",
+        "languageChange": "Språk inställningar",
+        "studyChoice": "Studie Val",
+        "genInfo": "Inställningar",
+        "accountInfo": "Konto Information",
+        "submit": "Godkänn"
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "Cerrar Sesión",
+        "accountSettings": "Configuraciones de la cuenta",
+        "Dashboard": "Tablero",
+        "presence": "Presencia"
+    },
+    "login": {
+        "loginName": "Bienvenido a la página de inicio de sesión",
+        "username": "Nombre De Usuario",
+        "password": "Contraseña"
+    },
+    "dashboard": {
+        "filterCourses": "Filtrar cursos",
+        "filterTerm": "Filtrar",
+        "dropdown": {
+            "firstname": "Nombre De Pila",
+            "lastname": "Apellido",
+            "email": "Correo Electrónico",
+            "phonenumber": "Número De Teléfono",
+            "location": "Ubicación",
+            "prefix": "Busca en",
+            "placeholder": "Nombre De Pila"
+        },
+        "table": {
+            "teacherFirst": "Nombre De Pila",
+            "teacherLast": "Apellido",
+            "courseName": "Curso",
+            "courseID": "Curso ID",
+            "eMail": "Correo Electrónico",
+            "phoneNumber": "Número De Teléfono",
+            "teacherPresent": "Profesor Presente",
+            "classLocation": "Dónde",
+            "teacherReachable": "Accesible",
+            "updateDate": "última Actualización",
+            "true": "Si",
+            "false": "No"
+        }
+    },
+    "account-settings": {
+        "pageName": "Configuraciones de la cuenta",
+        "languageChange": "Configuraciones De Idioma",
+        "studyChoice": "Elección De Estudio",
+        "genInfo": "Configuración general",
+        "accountInfo": "Informacion De Cuenta",
+        "submit": "Enviar"
+    }
+}

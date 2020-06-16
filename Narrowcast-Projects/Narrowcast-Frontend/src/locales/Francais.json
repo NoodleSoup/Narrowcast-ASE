@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "Se déconnecter",
+        "accountSettings": "Réglages",
+        "Dashboard": "Tableau de bord",
+        "presence": "Présence"
+    },
+    "login": {
+        "loginName": "Veuillez vous identifiez",
+        "username": "Identifiant",
+        "password": "Mot de Passe"
+    },
+    "dashboard": {
+        "filterCourses": "Filtrer les classes",
+        "filterTerm": "Filtrer",
+        "dropdown": {
+            "firstname": "Prénom",
+            "lastname": "Nom de Famille",
+            "email": "E-Mail",
+            "phonenumber": "Numéro de téléphone",
+            "location": "Lieux",
+            "prefix": "Chercher dans",
+            "placeholder": "Prénom"
+        },
+        "table": {
+            "teacherFirst": "Prénom",
+            "teacherLast": "Nom de Famille",
+            "courseName": "Classe",
+            "courseID": " ID de Classe",
+            "eMail": "E-Mail",
+            "phoneNumber": "Numéro de Téléphone",
+            "teacherPresent": "Professeur(s) présent",
+            "classLocation": "Lieux",
+            "teacherReachable": "Professeur(s) Joignable",
+            "updateDate": "Dernière Mise à Jours",
+            "true": "Oui",
+            "false": "Non"
+        }
+    },
+    "account-settings": {
+        "pageName": "Réglages du compte",
+        "languageChange": "Langue",
+        "studyChoice": "Choix de Matière",
+        "genInfo": "Paramètres de réglages",
+        "accountInfo": "information sur le compte",
+        "submit": "Sauvegarder"
+    }
+}

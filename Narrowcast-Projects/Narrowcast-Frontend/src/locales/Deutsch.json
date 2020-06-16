@@ -1,0 +1,48 @@
+{
+    "main": {
+        "logout": "Ausloggen",
+        "accountSettings": "Profileinstellungen",
+        "Dashboard": "Dashboard",
+        "presence": "Anwesenheit"
+    },
+    "login": {
+        "loginName": "Willkommen zur Login Seite",
+        "username": "Benutzername",
+        "password": "Passwort"
+    },
+    "dashboard": {
+        "filterCourses": "Kurse filtern",
+        "filterTerm": "Filter",
+        "dropdown": {
+            "firstname": "Vorname",
+            "lastname": "Nachname",
+            "email": "E-Mail",
+            "phonenumber": "Telefonnummer",
+            "location": "Location",
+            "prefix": "Suche an",
+            "placeholder": "Vorname"
+        },
+        "table": {
+            "teacherFirst": "Vorname",
+            "teacherLast": "Nachname",
+            "courseName": "Kurs",
+            "courseID": "Kurs ID",
+            "eMail": "E-Mail",
+            "phoneNumber": "Telefonnummer",
+            "teacherPresent": "Lehrer anwesend",
+            "classLocation": "Wo",
+            "teacherReachable": "erreichbar",
+            "updateDate": "Letzte Aktualisierung",
+            "true": "Ja",
+            "false": "Nein"
+        }
+    },
+    "account-settings": {
+        "pageName": "Profileinstellungen",
+        "languageChange": "Spracheinstellungen",
+        "studyChoice": "Kurs wählen",
+        "genInfo": "Einstellungen",
+        "accountInfo": "Profilinformationen",
+        "submit": "Senden"
+    }
+}

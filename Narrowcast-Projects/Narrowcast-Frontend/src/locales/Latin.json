@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "Logout",
+        "accountSettings": "Ratio occasus",
+        "Dashboard": "Dashboard",
+        "presence": "Praesentia"
+    },
+    "login": {
+        "loginName": "Lorem ipsum dolor sit login page",
+        "username": "Username",
+        "password": "Signum"
+    },
+    "dashboard": {
+        "filterCourses": "Antehabeo cursus",
+        "filterTerm": "Filter",
+        "dropdown": {
+            "firstname": "Firstname",
+            "lastname": "Lastname",
+            "email": "E-Mail",
+            "phonenumber": "Phone numerus,",
+            "locus": "Locus",
+            "prefix": "Quaerere in",
+            "placeholder": "Firstname"
+        },
+        "table": {
+            "teacherFirst": "Primum nomen",
+            "teacherLast": "Ultimum nomen",
+            "courseName": "Cursus",
+            "courseID": "Cursus ID",
+            "eMail": "E-Mail",
+            "phoneNumber": "Phone numerus,",
+            "teacherPresent": "Magister adest",
+            "classLocation": "Ubi",
+            "teacherReachable": "Reachable",
+            "updateDate": "Last updated",
+            "true": "Etiam",
+            "false": "Non"
+        }
+    },
+    "account-settings": {
+        "pageName": "Ratio occasus",
+        "languageChange": "Lingua occasus",
+        "studyChoice": "Studium Electio",
+        "genInfo": "Generalis occasus",
+        "accountInfo": "Propter notitia",
+        "submit": "Subire"
+    }
+}

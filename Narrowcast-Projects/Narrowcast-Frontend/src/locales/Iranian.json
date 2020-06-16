@@ -1,0 +1,48 @@
+{
+    "main": {
+        "logout": "خروج از حساب کاربری",
+        "accountSettings": "تنظیمات حساب کاربری",
+        "Dashboard": "داشبورد",
+        "presence": "حضور"
+    },
+    "login": {
+        "loginName": "به صفحه ورود خوش آمدید",
+        "username": "نام کاربری",
+        "password": "پسوورد"
+    },
+    "dashboard": {
+        "filterCourses": "فیلتر درس‌ها",
+        "filterTerm": "فیلتر",
+        "dropdown": {
+            "firstname": "نام",
+            "lastname": "نام خانوادگی",
+            "email": "ایمیل",
+            "phonenumber": "شماره موبایل",
+            "location": "محل سکونت",
+            "prefix": "جستجو در",
+            "placeholder": "نام"
+        },
+        "table": {
+            "teacherFirst": "نام",
+            "teacherLast": "نام خانوادگی",
+            "courseName": "درس",
+            "courseID": "مشخصه درس",
+            "eMail": "ایمیل",
+            "phoneNumber": "شماره موبایل",
+            "teacherPresent": "حضور استاد",
+            "classLocation": "محل برگزاری ",
+            "teacherReachable": "قابل دسترسی",
+            "updateDate": "آخرین بروزرسانی",
+            "true": "بلی",
+            "false": "خیر"
+        }
+    },
+    "account-settings": {
+        "pageName": "تنظیمات حساب کابری",
+        "languageChange": "تنظیمات زبان",
+        "studyChoice": "رشته تحصیلی",
+        "genInfo": "تنظیمات",
+        "accountInfo": "مشخصات حساب کاربری",
+        "submit": "تایید"
+    }
+}

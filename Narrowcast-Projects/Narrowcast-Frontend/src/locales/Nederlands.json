@@ -2,7 +2,8 @@
     "main":{
         "logout": "Uitloggen",
         "accountSettings": "Account instellingen",
-        "Dashboard": "Hoofdpagina"
+        "Dashboard": "Hoofdpagina",
+        "presence": "Aanwezig"
     },
     "login": {
         "loginName": "Welkom op de login pagina",
@@ -39,6 +40,9 @@
     "account-settings": {
         "pageName": "Account instellingen",
         "languageChange": "Taal instellingen",
-        "studyChoice": "Opleiding Keuze"
+        "studyChoice": "Opleiding Keuze",
+        "genInfo": "Algemene instellingen",
+        "accountInfo": "Account informatie",
+        "submit": "Opslaan"
     }
 }

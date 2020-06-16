@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "Cerrar Sesión",
+        "accountSettings": "Definições da conta",
+        "Dashboard": "Dashboard",
+        "presence": "Presença"
+    },
+    "login": {
+        "loginName": "Nome do login",
+        "username": "Nome de usuário",
+        "password": "Palavra-passe"
+    },
+    "dashboard": {
+        "filterCourses": "Cursos de filtro",
+        "filterTerm": "Termo de filtro",
+        "dropdown": {
+            "firstname": "Primeiro nome",
+            "lastname": "Nome de família",
+            "email": "E-Mail",
+            "phonenumber": "Numero de telemóvel",
+            "location": "Localização",
+            "prefix": "Prefixo",
+            "placeholder": "Primeiro nome"
+        },
+        "table": {
+            "teacherFirst": "Primeiro nome",
+            "teacherLast": "Nome de família",
+            "courseName": "Nome curso",
+            "courseID": "ID Curso",
+            "eMail": "E-Mail",
+            "phoneNumber": "Numero de telemóvel",
+            "teacherPresent": "Presente professor",
+            "classLocation": "Localização turma",
+            "teacherReachable": "Alcançável professor",
+            "updateDate": "Atualizar data",
+            "true": "Verdadeiro",
+            "false": "Falso"
+        }
+    },
+    "account-settings": {
+        "pageName": "Configurações da conta",
+        "languageChange": "Mudar lingua",
+        "studyChoice": "Escolha de estudo",
+        "genInfo": "Informação geral",
+        "accountInfo": "Informação de conta",
+        "submit": "Submeter"
+    }
+}
