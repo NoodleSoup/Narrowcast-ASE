@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
 import { LoginMS } from "../api/index";
+import _ from 'underscore'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,15 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/presence',
+    name: 'presence',
+    component: () => import('../views/Presence.vue'),
+    meta: {
+      requiresAuth: true,
+      requiresAccountType: ['teacher', 'teamleader']
+    }
   }
 ]
 
@@ -49,6 +59,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)){
+    if (to.matched.some(page => page.meta.requiresAccountType)){
+      if(_.contains(['teacher', 'teamleader'], sessionStorage.getItem('accountType'))){
+        next()
+      }
+      next({name: 'home'})
+    }
     if (LoginMS.loggedIn()) {
       next();
     }
