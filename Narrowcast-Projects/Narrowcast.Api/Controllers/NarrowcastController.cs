@@ -79,6 +79,20 @@ namespace Narrowcast.Api.Controllers
         /// <summary>
         /// Endpoint to add account ID to the Database
         /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        [HttpGet("account/type")]
+        public async Task<IActionResult> GetAccountType([FromQuery] string id)
+        {
+            var result = await _narrowcastRead.GetAccountType(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Endpoint to add account ID to the Database
+        /// </summary>
         /// <param name="account"></param>
         /// <returns>
         /// int of affected rows
@@ -89,6 +103,39 @@ namespace Narrowcast.Api.Controllers
             // For debugging
             Console.WriteLine($"\n\n\n\nGot ID: {account.data.id} Type: {account.data.type}\n\n\n\n");
             var result = await _narrowcastRead.AddIdToDb(account.data.id, account.data.type);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Endpoint to add account ID to the Database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        [HttpGet("account/data")]
+        public async Task<IActionResult> GetAccountData([FromQuery] string id)
+        {
+            var result = await _narrowcastRead.GetAccountData(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Endpoint to add account ID to the Database
+        /// </summary>
+        /// <param name="accountData"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        [HttpPost("account/data")]
+        public async Task<IActionResult> SetAccountData([FromBody] AccountDataPost accountData)
+        {
+            Console.WriteLine($"\n\n\n\nGot ID: {accountData.data.teacherPresent} {accountData.data.teacherReachable}\n\n\n\n");
+            var result = await _narrowcastRead.SetAccountData(accountData.data.eMail,
+                accountData.data.phoneNumber,
+                accountData.data.teacherPresent,
+                accountData.data.teacherReachable,
+                accountData.data.accountId);
             return Ok(result);
         }
     }

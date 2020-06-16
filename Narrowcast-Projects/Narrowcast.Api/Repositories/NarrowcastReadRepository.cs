@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Narrowcast.Api.Domain;
 using Narrowcast.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -106,20 +107,124 @@ namespace Narrowcast.Api.Repositories
         /// Add account ID into the DB
         /// </summary>
         /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        public async Task<string> GetAccountType(string id)
+        {
+            var result = await _connection.QuerySingleAsync<string>(
+                @"SELECT accountType
+                FROM AccountIDs
+                WHERE accountId = @id;",
+                new { id });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Add account ID into the DB
+        /// </summary>
+        /// <param name="id"></param>
         /// <param name="accountType"></param>
         /// <returns>
         /// int of affected rows
         /// </returns>
         public async Task<int> AddIdToDb(string id, string accountType)
         {
-            var result = await _connection.ExecuteAsync(
-                @"INSERT INTO
-                        AccountIDs (accountId, accountType)
-                VALUES (@id, @accountType);",
-                new { id, accountType });
+            try
+            {
+                var result = await _connection.ExecuteAsync(
+                    @"INSERT INTO
+                            AccountIDs (accountId, accountType)
+                    VALUES (@id, @accountType);",
+                    new { id, accountType });
 
-            return result;
+                return result;
+            }
+            catch(MySql.Data.MySqlClient.MySqlException eSql)
+            {
+                System.Diagnostics.Debug.WriteLine($"SQL Error: {eSql.Message} in {eSql.Source}");
+                return 0;
+            }
+        }
 
+        /// <summary>
+        /// Get account from the DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// account data
+        /// </returns>
+        public async Task<AccountData> GetAccountData(string id)
+        {
+            try
+            {
+                var result = await _connection.QuerySingleAsync<AccountData>(
+                    @"SELECT eMail,
+                        phoneNumber,
+                        teacherPresent,
+                        teacherReachable
+                    FROM narrowcast
+                    WHERE account_id in (
+                        SELECT accountId
+                        FROM accountids
+                        WHERE accountType = 'teacher'
+                        AND accountId = @id
+                    );",
+                    new { id });
+
+                return result;
+            }
+            catch(System.InvalidOperationException ioe)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error Message: {ioe.Message} in {ioe.Source} at {DateTime.Now:yyyy-MM-dd H:mm:ss}");
+                return new AccountData();
+
+            }
+        }
+
+        /// <summary>
+        /// update account data into the DB
+        /// </summary>
+        /// <param name="eMail"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="teacherPresent"></param>
+        /// <param name="teacherReachable"></param>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        public async Task<int> SetAccountData(string eMail, string phoneNumber, bool teacherPresent, bool teacherReachable, string id)
+        {
+            try
+            {
+                var result = await _connection.ExecuteAsync(
+                    @"UPDATE narrowcast
+                    SET eMail = @eMail,
+                        phoneNumber = @phoneNumber,
+                        teacherPresent = @teacherPresent,
+                        teacherReachable = @teacherReachable
+                    WHERE account_id in (
+                        SELECT accountId
+                        FROM accountids
+                        WHERE accountType = 'teacher'
+                        AND accountId = @id
+                    );",
+                    new {
+                        eMail,
+                        phoneNumber,
+                        teacherPresent,
+                        teacherReachable,
+                        id
+                    });
+
+                return result;
+            }
+            catch (MySql.Data.MySqlClient.MySqlException eSql)
+            {
+                System.Diagnostics.Debug.WriteLine($"SQL Error: {eSql.Message} in {eSql.Source}");
+                return 0;
+            }
         }
     }
 }

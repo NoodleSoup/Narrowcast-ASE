@@ -46,5 +46,36 @@ namespace Narrowcast.Api.Domain
         /// int of affected rows
         /// </returns>
         Task<int> AddIdToDb(string accountId, string accountType);
+
+        /// <summary>
+        /// Add account ID into the DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        Task<string> GetAccountType(string id);
+
+        /// <summary>
+        /// Add account ID into the DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        Task<AccountData> GetAccountData(string id);
+
+        /// <summary>
+        /// Add account data into the DB
+        /// </summary>
+        /// <param name="eMail"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="teacherPresent"></param>
+        /// <param name="teacherReachable"></param>
+        /// <param name="id"></param>
+        /// <returns>
+        /// int of affected rows
+        /// </returns>
+        Task<int> SetAccountData(string eMail, string phoneNumber, bool teacherPresent, bool teacherReachable, string id);
     }
 }
