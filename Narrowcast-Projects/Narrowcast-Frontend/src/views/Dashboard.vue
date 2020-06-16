@@ -1,11 +1,13 @@
 <template>
   <div class="dashboard background-page">
-    <header class="flex-box-2">
-      <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
-      <button class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
-      <button class="button button-main" type="submit" v-on:click="switchPage('account')">{{ $t('main.accountSettings') }}</button>
-      <button class="button button-main" type="submit" v-on:click="switchPage('presence')"></button>
-      <button class="button button-main" type="submit" v-on:click="switchPage('logout')">{{ $t('main.logout') }}</button>
+    <header>
+      <h1 class="header-text" v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" />
+      <div class="flex-box-2">
+        <button class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
+        <button class="button button-main" type="submit" v-on:click="switchPage('account')">{{ $t('main.accountSettings') }}</button>
+        <button class="button button-main" v-if="accountType !== false" type="submit" v-on:click="switchPage('presence')">{{ $t('main.presence') }}</button>
+        <button class="button button-main" type="submit" v-on:click="switchPage('logout')">{{ $t('main.logout') }}</button>
+      </div>
     </header>
     <aside>
       <div class="title">
@@ -20,7 +22,7 @@
     </aside>
     <main>
       <vue-dropdown v-if="selectedContainer !== null" :config="configDropdown" @setSelectedOption="setNewSelectedOption($event)"></vue-dropdown>
-      <input v-if="selectedContainer !== null" v-model="filterDataTerm" type="text" v-bind:placeholder="$t('dashboard.filterTerm')" :disabled="selectedContainer === null" v-on:input="selectData(filterDataTerm, $event)" />
+      <input class="input-dash" v-if="selectedContainer !== null" v-model="filterDataTerm" type="text" v-bind:placeholder="$t('dashboard.filterTerm')" :disabled="selectedContainer === null" v-on:input="selectData(filterDataTerm, $event)" />
       <List :name="selectedContainer" :filter="filterData" :filterby="filterByData" />
     </main>
   </div>
@@ -30,6 +32,7 @@
 import VueDropdown from 'vue-dynamic-dropdown'
 import { Api, graphConfig, Login, LoginMS } from '../api/index'
 import { List } from '@/components/common'
+import _ from 'underscore'
 
 export default {
   name: 'dashboard',
@@ -48,6 +51,7 @@ export default {
       filteredItems: null,
       selectedContainer: null,
       token: '',
+      accountType: false,
 
       configDropdown: {
         options: [
@@ -123,19 +127,19 @@ export default {
       this.$router.push('/');
     },
     switchPage(page){
-      var route = '/';
+      let route;
 
       switch(page) {
-        case "account":
+        case 'account':
           route = '/account';
           break;
-        case "dashboard":
+        case 'dashboard':
           route = '/home';
           break;
-        case "logout":
+        case 'logout':
           this.logOut()
           break;
-        case "presence":
+        case 'presence':
           route = '/presence';
           break;
         default:
@@ -146,6 +150,11 @@ export default {
     loginMethod(){
       if (LoginMS.loggedIn()) return 'ms';
       return 'github';
+    },
+    checkRole(){
+      if(_.contains(['teacher', 'teamleader'], sessionStorage.getItem('accountType'))){
+        this.accountType = true
+      }
     }
   },
   mounted() {
@@ -154,6 +163,9 @@ export default {
         this.filteredCourses();
     })
     if (Login.getTokenExpiry()) this.$router.push('/')
+    if (!sessionStorage.getItem('accountType'))
+      LoginMS.getAccountType()
+    this.checkRole()
   },
   created(){
     if (sessionStorage.getItem('token')){
