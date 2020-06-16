@@ -2,7 +2,7 @@
   <div class="login">
     <main>
       <div class="login-fields">
-        <h1 class="title">{{ $t('login.loginName') }}</h1>
+        <h1 class="titleLogin">{{ $t('login.loginName') }}</h1>
         <input class="username" type="text" v-bind:placeholder="$t('login.username')" />
         <input class="password" type="password" v-bind:placeholder="$t('login.password')" />
         <button class="button button-large" type="submit">{{buttonText}}</button>
