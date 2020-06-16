@@ -1,20 +1,18 @@
 <template>
   <div class="Account-Settings dashboard background-page">
-    <header class="flex-box-2">
-      <!-- <h1 v-if="selectedContainer !== null" v-text="returnDisplayName(selectedContainer)" /> -->
-      <!-- <h1 class="test" v-text="returnAccountName()" /> -->
-      <button class="button button-main" type="submit" v-on:click="switchPage('Dashboard')">{{ $t('main.Dashboard') }}</button>
-      <button class="button button-main" type="submit" v-on:click="logOut($event)">{{ $t('main.logout') }}</button>
-      <!-- <button class="Account-Settings" type="submit" v-on:click="getAccountSettings()">Account Settings</button> -->
+    <header>
+      <div class="flex-box-2">
+        <button class="button button-main" type="submit" v-on:click="switchPage('dashboard')">{{ $t('main.Dashboard') }}</button>
+        <button class="button button-main" type="submit" v-on:click="logOut($event)">{{ $t('main.logout') }}</button>
+      </div>
     </header>
     <aside>
-      <div class="title">
-        <span>{{pageTitle}}</span>
-      </div>
+      <div class="title"></div>
     </aside>
     <main>
       <h1 class="AS-pageName">{{ $t('account-settings.pageName') }}</h1>
       <hr class="AS-MidLine">
+      <h2 class="AS-pageName">{{ $t('account-settings.genInfo')}} </h2>
 
       <!-- Language Settings -->
       <h3 class="AS-TextSet">{{ $t('account-settings.languageChange')}}</h3>
@@ -23,101 +21,89 @@
       </select>
 
       <!-- Study Choice -->
-      <h3 class="AS-TextSet">{{ $t('account-settings.studyChoice')}}</h3>
-      <select class="AS-Dropdown">
-        <option v-for="(course, i) in courses" :key="`Course${i}`" :value="course">{{ course.courseName }}</option>
-      </select>
+      <div v-if="accountType !== false">
+        <h3 class="AS-TextSet">{{ $t('account-settings.studyChoice')}}</h3>
+        <select class="AS-Dropdown">
+          <option v-for="(course, i) in courses" :key="`Course${i}`" :value="course">{{ course.courseName }}</option>
+        </select>
+      </div>
+      <div v-if="accountType !== true">
+        <form onsubmit="return false">
+          <!-- Personal Settings -->
+          <hr class="AS-MidLine">
+          <h2 class="AS-TextSet">{{ $t('account-settings.accountInfo')}}</h2>
 
-      <!-- Personal Settings -->
+          <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.eMail')}}</h3>
+          <input class="inputAS" type="text" id="eMail" :placeholder="eMail" />
+
+          <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.phoneNumber')}}</h3>
+          <input class="inputAS" type="text" id="phoneNumber" :placeholder="phoneNumber" />
+
+          <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.teacherPresent')}}</h3>
+          <!-- <input class="inputAS" type="text" id="teacherReachable" :placeholder="teacherPresent" /> -->
+          <label class="switch">
+            <input type="checkbox" id="teacherPresent" v-model="teacherPresent">
+            <span class="slider round"></span>
+          </label>
+
+          <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.teacherReachable')}}</h3>
+          <!-- <input class="inputAS" type="text" id="teacherReachable" :placeholder="teacherReachable" /> -->
+          <label class="switch">
+            <input type="checkbox" id="teacherReachable" v-model="teacherReachable" >
+            <span class="slider round"></span>
+          </label>
+
+          <button class="button button-main" style="margin-left: 0px;" type="submit" v-on:click="submitPage($event)">{{ $t('account-settings.submit') }}</button>
+        </form>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
-import { Api, Login } from '@/api/index.js'
+import { Api, graphConfig, LoginMS } from '@/api/index.js'
+import _ from 'underscore'
 
 export default {
   name: 'account-settings',
   data() {
     return {
-      pageTitle: '',
+      accountType: true,
       courses: null,
-      filterTerm: '',
-      filterDataTerm: '', // initialize custom filter input
-      filterByData: 'teacherFirst', // set default filter
-      filterData: '', // used to store the custom filter input
-      filteredItems: null,
-      selectedContainer: null,
-      token: '',
-      langs: this.$locales
-
-    }
-  },
-  watch: {
-    filterTerm: function() {
-      this.filteredCourses();
+      eMail: null,
+      langs: this.$locales,
+      phoneNumber: null,
+      teacherPresent: null,
+      teacherReachable: null,
+      token: ''
     }
   },
   methods: {
-    filteredCourses() {
-      this.filteredItems = this.courses.filter(course => {
-        return course.courseName.toLowerCase().indexOf(this.filterTerm.toLowerCase()) > -1
+    logOut(){
+      if (sessionStorage.getItem('token')) sessionStorage.removeItem('token');
+      if (LoginMS.loggedIn()) LoginMS.logOut();
+      this.$router.push('/');
+    },
+    submitPage(){
+      let inputeMail = document.getElementById("eMail").value || this.eMail;
+      let inputphoneNumber = document.getElementById("phoneNumber").value || this.phoneNumber;
+      let inputteacherPresent = this.teacherPresent;
+      let inputteacherReachable = this.teacherReachable;
+
+      LoginMS.getTokenPopup()
+        .then(token => {
+          LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+          .then(data => {
+            Api.setAccountData(inputeMail, inputphoneNumber, inputteacherPresent, inputteacherReachable, data['id'])
+        })
+        .catch(error => {
+          // eslint-disable-next-line
+          console.log(error)
+        })
       });
     },
-    selectContainer(name, event) {
-      if (event) event.preventDefault();
-      this.selectedContainer = name;
-    },
-    selectData(filter, event){
-      if(event) event.preventDefault();
-      this.filterData = filter;
-    },
-    setNewSelectedOption(selectedOption) {
-      this.configDropdown.placeholder = selectedOption.text;
-      this.filterByData = selectedOption.value;
-    },
-    returnDisplayName(name) {
-      return name.split('.').join(' ');
-    },
-    getCodeFromUri(){
-      let uri = window.location.search.substring(1);
-      let params = new URLSearchParams(uri);
-      return params.get("code");
-    },
-    printUserData(){
-      Login.getUserData().then(data => {
-        // eslint-disable-next-line
-        console.log(data);
-        alert(data['name']);
-      })
-    },
-    logOut(){
-      localStorage.removeItem('token');
-      window.location.href = `${window.location.origin}/`;
-    },
-    returnAccountName(){
-      Login.getUserData().then(data => {
-        return data['login'];
-      })
-    },
-    getTokenExpiry(){
-      const itemStr = localStorage.getItem('token')
-      // if the item doesn't exist, return null
-      if (!itemStr) {
-        return null
-      }
-      const item = JSON.parse(itemStr)
-      const now = new Date()
-      // compare the expiry time of the item with the current time
-      if (now.getTime() > item.expiry) {
-        // If the item is expired, delete the item from storage
-        // and return null
-        localStorage.removeItem('token')
-        this.$router.push('/');
-      }
-    },
     switchPage(page){
-      var route = '/';
+      let route = '/';
 
       switch(page) {
         case "account":
@@ -139,15 +125,43 @@ export default {
     },
     languageChange(event){
       localStorage.setItem('lang', event.target.value);
+    },
+    checkRole(){
+      if(_.contains(['teacher', 'teamleader'], sessionStorage.getItem('accountType'))){
+        this.accountType = false
+      }
     }
   },
   mounted() {
     Api.getCourses().then(data => {
-      this.courses = data;
-      this.filteredCourses();
+        this.courses = data;
     })
-    this.getTokenExpiry();
+    this.checkRole();
 
+    if(this.accountType !== true){
+      LoginMS.getTokenPopup()
+        .then(token => {
+          LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+          .then(data => {
+            Api.getAccountData(data['id']).then(accountData => {
+              // eslint-disable-next-line
+              console.log(accountData)
+              this.eMail = accountData.eMail;
+              this.phoneNumber = accountData.phoneNumber;
+              this.teacherPresent = accountData.teacherPresent; //=== true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false');
+              this.teacherReachable = accountData.teacherReachable; //=== true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false');
+            });
+          })
+          .catch(error => {
+            // eslint-disable-next-line
+            console.log(error)
+          })
+        })
+        .catch(error => {
+          // eslint-disable-next-line
+          console.log(error)
+        });
+    }
   },
   created(){
     if (sessionStorage.getItem('token')){
