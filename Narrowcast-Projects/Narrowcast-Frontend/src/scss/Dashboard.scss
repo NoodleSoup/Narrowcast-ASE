@@ -5,12 +5,13 @@
   grid-template-rows: 80px 1fr;
   grid-template-columns: 300px 1fr;
 
-  header {
+  .header-text {
     grid-row: 1;
     grid-column: 2;
     padding: 0 30px;
     color: white;
     display: flex;
+    position: fixed;
   }
 
   aside {
@@ -18,21 +19,6 @@
     grid-column: 1; 
     background-color: #009BAA;
     color: #fff;
-
-    .title {
-      // background: #003789;
-      background-image: url("../img/teachere.png");
-      background-size: 280px 60px;
-      background-repeat: no-repeat;
-      background-position: center;
-      font-size: 30px;
-      padding: 20px 20px;
-      margin-right: 5px;
-      box-sizing: border-box;
-      height: 80px;
-      display: flex;
-      align-items: center;
-    }
 
     input {
       margin: 35px 15px;
@@ -77,17 +63,23 @@
     // background-color: #fff;
 
     input {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      // margin-top: 15px;
+      // margin-bottom: 15px;
       padding: 10px;
       border-radius: 4px;
       width: calc(25% - 30px);
       min-width: 195px;
-      border-color: #000;
+      border: none;
+      // border-color: #000;
       box-sizing: border-box;
     }
   }
   // background-image: url('../img/bg-page.png');
   // background-size: cover;
+}
+
+.input-dash {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
   

@@ -18,6 +18,7 @@
 .flex-box-2 {
     display:flex;
     justify-content: flex-end;
+    padding: 0 30px;
 }
 
 .button {
@@ -41,3 +42,18 @@
     border: none;
     width: calc(100% - 10px);
 }
+
+.title {
+    // background: #003789;
+    background-image: url("../img/Teachere_logo_White.png");
+    background-size: 280px 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 30px;
+    padding: 20px 20px;
+    margin-right: 5px;
+    box-sizing: border-box;
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }

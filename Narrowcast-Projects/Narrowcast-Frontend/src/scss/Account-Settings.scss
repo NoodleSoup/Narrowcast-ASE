@@ -1,55 +1,25 @@
 .account-settings {
-  aside {
-    grid-row: 1 / 3;
-    grid-column: 1; 
-    background-color: #009BAA;
-    color: #fff;
+  ul {
+    margin: 0;
+    padding: 0;
 
-    .title {
-      // background: #003789;
-      background-image: url("../img/teachere.png");
-      background-size: 280px 60px;
-      background-repeat: no-repeat;
-      background-position: center;
-      font-size: 30px;
-      padding: 20px 20px;
-      margin-right: 5px;
-      box-sizing: border-box;
-      height: 80px;
-      display: flex;
-      align-items: center;
-    }
+    li {
+      list-style-type: none;
 
-    input {
-      margin: 35px 15px;
-      padding: 10px;
-      border-radius: 4px;
-      width: calc(100% - 30px);
-      border: none;
-      box-sizing: border-box;
-    }
+      a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 15px;
+        display: block;
+        transition: background 120ms ease-out;
 
-    ul {
-      margin: 0;
-      padding: 0;
-
-      li {
-        list-style-type: none;
-
-        a {
-          color: #fff;
-          text-decoration: none;
-          padding: 8px 15px;
-          display: block;
-          transition: background 120ms ease-out;
-
-          &.active,
-          &:hover {
-            background: #005AA9;
-          }
+        &.active,
+        &:hover {
+          background: #005AA9;
         }
       }
     }
+    
   }
 
   main {
@@ -63,10 +33,10 @@
     // background-color: #fff;
 
     input {
-      margin-top: 15px;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 4px;
+      // margin-top: 15px;
+      // margin-bottom: 15px;
+      // padding: 10px;
+      border-radius: 0px;
       width: calc(25% - 30px);
       min-width: 195px;
       border-color: #000;
@@ -95,5 +65,69 @@
 .AS-MidLine{
   border: 1px solid rgba(#fff, 0.4);
   border-radius: 5px;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
+}
+
+.AS-Inf{
+  border: 0px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #005AA9;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #005AA9;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
