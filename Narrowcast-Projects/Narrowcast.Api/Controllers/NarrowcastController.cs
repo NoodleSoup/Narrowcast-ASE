@@ -11,7 +11,7 @@ namespace Narrowcast.Api.Controllers
     /// <summary>
     /// Class to setup the API endpoint
     /// </summary>
-    [ApiController, Route("narrowcast")]
+    [ApiController, Route("narrowcast/v1.0")]
     public class NarrowcastController : ControllerBase
     {
         private readonly INarrowcastReadRepository _narrowcastRead;
