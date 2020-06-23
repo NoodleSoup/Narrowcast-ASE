@@ -1,8 +1,7 @@
 import { Api, Base, graphConfig } from './index';
-// eslint-disable-next-line
-import axios from 'axios';
 import * as Msal from 'msal';
 
+// Setting up the MSAL client
 const msalConfig = {
     auth: {
         clientId: Base.msClientID,
@@ -16,11 +15,14 @@ const msalConfig = {
 };
 const msalInstance = new Msal.UserAgentApplication(msalConfig);
 
+// Initializing the request scopes
 let loginRequest = {
     scopes: ['openid', 'profile', 'User.Read']
 };
 
+// Contains all functions for Microsoft OAuth support
 export default {
+    // Login user with OAuth from Microsoft
     login(event){
         if (event) event.preventDefault();
 
@@ -53,13 +55,16 @@ export default {
                 }
             });
     },
+    // Check if the user is logged in with Microsoft
     loggedIn(){
         return msalInstance.getAccount() === null ? false : true
     },
+    // Logout user from application
     logOut(){
         sessionStorage.removeItem('accountType');
         msalInstance.logout();
     },
+    // Request accesstoken in background, if fails request using popup
     getTokenPopup(){
         return msalInstance.acquireTokenSilent(loginRequest)
         .then(
@@ -82,6 +87,7 @@ export default {
         });
     },
     /* eslint-disable */
+    // Request Microsoft graph endpoint to request account data
     graphCall(endpoint, token){
         const headers = new Headers();
         const bearer = `Bearer ${token}`;
@@ -97,6 +103,7 @@ export default {
         .then(response => response.json())
         .catch(error => console.log(error))
     },
+    // Request account type from database using Microsoft unique account ID
     getAccountType(){
         this.getTokenPopup()
         .then(token => {
