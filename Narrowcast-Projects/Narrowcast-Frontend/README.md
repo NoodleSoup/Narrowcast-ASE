@@ -1,4 +1,4 @@
-# dockerapi
+# narrowcast
 
 ## Project setup
 ```
