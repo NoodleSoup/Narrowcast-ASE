@@ -1,78 +1,78 @@
 ﻿namespace Narrowcast.Api.Models
 {
     /// <summary>
-    /// Class to initialize the container values Object
+    /// Class to initialize the narrowcast values Object
     /// </summary>
     public class NarrowcastValue
     {
         /// <summary>
-        /// Voornaam van de docent.
+        /// Firstname of the teacher.
         /// </summary>
         /// <value>String</value>
         public string teacherFirst { get; set; }
 
         /// <summary>
-        /// Achternaam van de docent
+        /// Lastname of the teacher.
         /// </summary>
         /// <value>String</value>
         public string teacherLast { get; set; }
 
         /// <summary>
-        /// Naam van de opleiding.
+        /// Name of the course.
         /// </summary>
         /// <value>String</value>
         public string courseName { get; set; }
 
         /// <summary>
-        /// ID van de opleiding.
+        /// ID of the course.
         /// </summary>
         /// <value>String</value>
         public string courseID { get; set; }
 
         /// <summary>
-        /// e-Mail van de docent.
+        /// e-Mail from the teacher.
         /// </summary>
         /// <value>String</value>
         public string eMail { get; set; }
 
         /// <summary>
-        /// Telefoon nummer van de docent (mits aanwezig).
+        /// Phone number from the teacher (if present).
         /// </summary>
         /// <value>String</value>
         public string phoneNumber { get; set; }
 
         /// <summary>
-        /// Of de docent aanwezig is of niet.
+        /// Whether the teacher is present.
         /// </summary>
         /// <value>String</value>
         public bool teacherPresent { get; set; }
 
         /// <summary>
-        /// Waar de leraar is in het gebouw.
+        /// Where the teacher is in the school.
         /// </summary>
         /// <value>String</value>
         public string classLocation { get; set; }
 
         /// <summary>
-        /// Of de docent bereikbaar is of niet.
+        /// If the teacher is reachable.
         /// </summary>
         /// <value></value>
         public bool teacherReachable { get; set; }
 
         /// <summary>
-        /// Datum wanneer de docent data is geupdate. Formaat 'yyyy-MM-dd H:m:s'.
+        /// Date of last update. Format 'yyyy-MM-dd H:m:s'.
         /// </summary>
         /// <value>String</value>
         public string updateDate { get; set; }
     }
 
     /// <summary>
-    /// Class to initialize the services value Object
+    /// Class to initialize the courses value Object
     /// </summary>
     public class CoursesValue
     {
         /// <summary>
-        /// Projectnaam op TeamCity waar de build configuraties instaan.
+        /// Name of all courses available in the database.
         /// </summary>
         /// <value>String</value>
         public string courseName { get; set; }

@@ -11,10 +11,13 @@ namespace Narrowcast.Api.Models
         public Headers headers { get; set; }
     }
 
+    /// <summary>
+    /// Data from the post request from the client.
+    /// </summary>
     public partial class Data
     {
         /// <summary>
-        /// AccountID van Microsoft account.
+        /// AccountID of Microsoft account.
         /// </summary>
         /// <value>String</value>
         [JsonProperty("id")]
@@ -28,6 +31,9 @@ namespace Narrowcast.Api.Models
         public string type { get; set; }
     }
 
+    /// <summary>
+    /// Headers from the post request.
+    /// </summary>
     public partial class Headers
     {
         [JsonProperty("Content-Type")]

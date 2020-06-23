@@ -17,7 +17,7 @@ namespace Narrowcast.Api.Controllers
         private readonly INarrowcastReadRepository _narrowcastRead;
 
         /// <summary>
-        /// Constructor, cast containerRead interface to readonly containerRead.
+        /// Constructor, cast narrowcastRead interface to readonly narrowcastRead.
         /// </summary>
         /// <param name="narrowcastRead"></param>
         public NarrowcastController(INarrowcastReadRepository narrowcastRead)
@@ -32,7 +32,7 @@ namespace Narrowcast.Api.Controllers
         /// <param name="teacherReachable"></param>
         /// <param name="updateDate"></param>
         /// <returns>
-        /// Image/Container data in JSON
+        /// Teacher data in JSON
         /// </returns>
         [HttpGet("search")]
         public async Task<IActionResult> CustomSearchNarrowcasts([FromQuery(Name = "teacherFirst")]string teacherFirst = "%",
@@ -50,10 +50,10 @@ namespace Narrowcast.Api.Controllers
         }
 
         /// <summary>
-        /// Endpoint to get all services
+        /// Endpoint to get all courses
         /// </summary>
         /// <returns>
-        /// All services once in JSON
+        /// All courses once in JSON
         /// </returns>
         [HttpGet("courses")]
         public async Task<IActionResult> GetCoursesAsync()
@@ -63,11 +63,11 @@ namespace Narrowcast.Api.Controllers
         }
 
         /// <summary>
-        /// Endpoint to get the image/container info by specific service
+        /// Endpoint to get the teacher info by specific course
         /// </summary>
         /// <param name="course"></param>
         /// <returns>
-        /// Image/Container info per service
+        /// Teacher info per service
         /// </returns>
         [HttpGet("courses/list")]
         public async Task<IActionResult> GetNarrowcastByCourse([FromQuery(Name = "course")]string course = "%")
@@ -100,8 +100,6 @@ namespace Narrowcast.Api.Controllers
         [HttpPost("account/id")]
         public async Task<IActionResult> AddId([FromBody]Account account)
         {
-            // For debugging
-            Console.WriteLine($"\n\n\n\nGot ID: {account.data.id} Type: {account.data.type}\n\n\n\n");
             var result = await _narrowcastRead.AddIdToDb(account.data.id, account.data.type);
             return Ok(result);
         }
@@ -130,7 +128,6 @@ namespace Narrowcast.Api.Controllers
         [HttpPost("account/data")]
         public async Task<IActionResult> SetAccountData([FromBody] AccountDataPost accountData)
         {
-            Console.WriteLine($"\n\n\n\nGot ID: {accountData.data.teacherPresent} {accountData.data.teacherReachable}\n\n\n\n");
             var result = await _narrowcastRead.SetAccountData(accountData.data.eMail,
                 accountData.data.phoneNumber,
                 accountData.data.teacherPresent,

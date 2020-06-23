@@ -5,28 +5,28 @@ namespace Narrowcast.Api.Models
     public partial class AccountData
     {
         /// <summary>
-        /// e-Mail van de docent.
+        /// e-Mail from the teacher.
         /// </summary>
         /// <value>String</value>
         [JsonProperty("eMail")]
         public string eMail { get; set; } = "Unavailable";
 
         /// <summary>
-        /// Telefoon nummer van de docent (mits aanwezig).
+        /// Phone number from the teacher (if present).
         /// </summary>
         /// <value>String</value>
         [JsonProperty("phoneNumber")]
         public string phoneNumber { get; set; } = "Unavailable";
 
         /// <summary>
-        /// Of de docent aanwezig is of niet.
+        /// Whether the teacher is present.
         /// </summary>
         /// <value>String</value>
         [JsonProperty("teacherPresent")]
         public bool teacherPresent { get; set; } = false;
 
         /// <summary>
-        /// Of de docent bereikbaar is of niet.
+        /// If the teacher is reachable.
         /// </summary>
         /// <value></value>
         [JsonProperty("teacherReachable")]
@@ -34,7 +34,7 @@ namespace Narrowcast.Api.Models
 
 
         /// <summary>
-        /// ID van het account in de database.
+        /// Account id in the database.
         /// </summary>
         /// <value></value>
         [JsonProperty("accountId")]

@@ -25,16 +25,16 @@ namespace Narrowcast.Api.Domain
                                                                 string updateDate);
 
         /// <summary>
-        /// Endpoint to get all services
+        /// Endpoint to get all courses
         /// </summary>
-        /// <returns>All services once in JSON</returns>
+        /// <returns>All courses once in JSON</returns>
         Task<IEnumerable<CoursesValue>> GetCourses();
 
         /// <summary>
-        /// Endpoint to get the image/container info by specific service
+        /// Endpoint to get the teacher info by specific course
         /// </summary>
         /// <param name="course"></param>
-        /// <returns>Image/Container info per service</returns>
+        /// <returns>Teacher info per course</returns>
         Task<IEnumerable<NarrowcastValue>> GetNarrowcastByCourse(string course);
 
         /// <summary>

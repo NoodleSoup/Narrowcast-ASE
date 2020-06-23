@@ -29,7 +29,7 @@ namespace Narrowcast.Api.Repositories
         /// </summary>
         /// <example>
         /// <code>
-        /// CustomContainerSearch(%,version-42",%,%,%);
+        /// CustomNarrowcastSearch(%,"Foppele",%,%,%);
         /// </code>
         /// </example>
         /// <param name="teacherFirst"></param>
@@ -38,7 +38,7 @@ namespace Narrowcast.Api.Repositories
         /// <param name="teacherReachable"></param>
         /// <param name="updateDate"></param>
         /// <returns>
-        /// All data the database has on an image/container
+        /// All data the database has on a teacher
         /// </returns>
         public async Task<IEnumerable<NarrowcastValue>> CustomNarrowcastSearch(string teacherFirst, string teacherLast, string courseName, string teacherReachable, string updateDate)
         {
@@ -58,11 +58,11 @@ namespace Narrowcast.Api.Repositories
         }
 
         /// <summary>
-        /// Query to return all services in the database
+        /// Query to return all courses in the database
         /// </summary>
         /// <returns>
-        /// All services in the database
-        /// if there's more then one it returns the service once
+        /// All courses in the database
+        /// if there's more then one it returns the course once
         /// </returns>
         public async Task<IEnumerable<CoursesValue>> GetCourses()
         {
@@ -75,11 +75,11 @@ namespace Narrowcast.Api.Repositories
         }
 
         /// <summary>
-        /// Query to return all image/container data it has on a specific service
+        /// Query to return all teacher data it has on a specific course
         /// </summary>
         /// <param name="course"></param>
         /// <returns>
-        /// Image/Container data
+        /// Teacher data
         /// </returns>
         public async Task<IEnumerable<NarrowcastValue>> GetNarrowcastByCourse(string course)
         {
@@ -184,7 +184,7 @@ namespace Narrowcast.Api.Repositories
         }
 
         /// <summary>
-        /// update account data into the DB
+        /// Update account data into the DB
         /// </summary>
         /// <param name="eMail"></param>
         /// <param name="phoneNumber"></param>
