@@ -1,0 +1,48 @@
+{
+    "main":{
+        "logout": "登出",
+        "accountSettings": "帳戶設定",
+        "Dashboard": "儀表板",
+        "presence": "Presence"
+    },
+    "login": {
+        "loginName": "歡迎來到登錄頁",
+        "username": "用戶名",
+        "password": "密碼"
+    },
+    "dashboard": {
+        "filterCourses": "篩選課程",
+        "filterTerm": "篩選",
+        "dropdown": {
+            "firstname": "名字",
+            "lastname": "姓",
+            "email": "電郵",
+            "phonenumber": "電話號碼",
+            "location": "地點",
+            "prefix": "Search on",
+            "placeholder": "名字"
+        },
+        "table": {
+            "teacherFirst": "名字",
+            "teacherLast": "姓",
+            "courseName": "Course",
+            "courseID": "課程號碼",
+            "eMail": "電郵",
+            "phoneNumber": "電話號碼",
+            "teacherPresent": "老師在場",
+            "classLocation": "哪裡",
+            "teacherReachable": "Reachable",
+            "updateDate": "最近更新",
+            "true": "是",
+            "false": "不是"
+        }
+    },
+    "account-settings": {
+        "pageName": "Account settings",
+        "languageChange": "Language settings",
+        "studyChoice": "課程選擇",
+        "genInfo": "常規設置",
+        "accountInfo": "帳戶信息",
+        "submit": "遞交"
+    }
+}
