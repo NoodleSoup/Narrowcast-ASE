@@ -7,7 +7,7 @@
         <input class="password" type="password" v-bind:placeholder="$t('login.password')" />
         <button class="button button-large" type="submit">{{buttonText}}</button>
         <button class="button button-large" type="button" v-on:click="loginGithubMethod($event)">{{loginGithub}}</button>
-        <button class="button button-large" type="button" v-on:click="loginMSMethod($event)">{{loginMS}}</button>
+        <button class="button button-large" type="button" v-on:click="MicrosoftMethod($event)">{{Microsoft}}</button>
       </div>
       <div class="LogoNHL"></div>
       <div class="LogoTeach"></div>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { Login, LoginMS } from "../api/index";
+import { Github, Microsoft } from "../api/index";
 export default {
   name: 'login',
   data() {
@@ -24,21 +24,23 @@ export default {
       title: 'Login',
       buttonText: 'Login',
       loginGithub: 'GitHub',
-      loginMS: 'Microsoft',
+      Microsoft: 'Microsoft',
       token: ''
     }
   },
   methods: {
+    // Handle login using GitHub
     loginGithubMethod(event){
-      Login.loginGithub(event)
+      Github.login(event)
     },
-    loginMSMethod(event){
-      LoginMS.login(event)
+    // Handle login using Microsoft
+    MicrosoftMethod(event){
+      Microsoft.login(event)
     }
   },
   created(){
-    Login.getTokenExpiry(),
-    LoginMS.loggedIn()
+    Github.getTokenExpiry(), // Check if GitHub acces token is not expired
+    Microsoft.loggedIn() // Check if user is logged in using Microsoft
   }
 }
 </script>

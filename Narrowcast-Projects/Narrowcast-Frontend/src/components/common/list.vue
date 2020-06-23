@@ -1,13 +1,13 @@
 <template>
-  <div class="service">
+  <div class="course">
     <div class="table-wrapper" v-if="categories !== null">
       <table>
         <thead>
           <th v-for="(category, index) in categoriesHead" :key="index" v-text="category" v-show="showColumn(category)"></th>
         </thead>
         <tbody>
-          <tr v-for="(container, index) in containers" :key="index">
-            <td v-for="(category, index) in categories" :key="index" v-text="container[category]" v-show="showColumn(category)"></td>
+          <tr v-for="(teacher, index) in teachers" :key="index">
+            <td v-for="(category, index) in categories" :key="index" v-text="teacher[category]" v-show="showColumn(category)"></td>
           </tr>
         </tbody>
       </table>
@@ -20,16 +20,16 @@ import Api from '@/api/api.js'
 import _ from 'underscore'
 
 export default {
-  name: 'service',
-  filter: 'service', // custom filter input
-  filterby: 'service', // filter by data from container info
+  name: 'course',
+  filter: 'course', // custom filter input
+  filterby: 'teacher', // filter by data from course info
   data() {
     return {
-      services: null,
-      containers: null,
-      categories: null,
-      categoriesHead: [],
-      search: ''
+      courses: null, // available courses
+      teachers: null, // teacher data per course
+      categories: null, // data from teachers
+      categoriesHead: [], // table head names
+      search: '' // custom search query
     }
   },
   props: {
@@ -46,13 +46,15 @@ export default {
     },
     filter: function(){
       this.filterNarrowcastData();
-    } 
+    }
   },
   methods: {
+    // Hide certain columns
     showColumn(category) {
       if(_.contains([this.$t('dashboard.table.courseName'), 'courseName', this.$t('dashboard.table.courseID'), 'courseID'], category)) return false;
       return true
     },
+    // Request course data
     getNarrowcastData() {
       Api.getCourse(this.name).then(data => {
         this.categories = Object.keys(data[0]);
@@ -60,17 +62,18 @@ export default {
         this.categoriesHead.forEach((item, index) => {
           this.categoriesHead[index] = this.$t(`dashboard.table.${item}`)
         });
-        this.services = data;
+        this.courses = data;
         // eslint-disable-next-line
-        this.services.forEach((item, index) => {
-          this.services[index].teacherPresent = this.services[index].teacherPresent === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
-          this.services[index].teacherReachable = this.services[index].teacherReachable === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
+        this.courses.forEach((item, index) => { // transform true and false to Yes and No (language specific with i18n)
+          this.courses[index].teacherPresent = this.courses[index].teacherPresent === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
+          this.courses[index].teacherReachable = this.courses[index].teacherReachable === true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false')
         });
         this.filterNarrowcastData();
       })
     },
+    // Filter teacher data
     filterNarrowcastData(){
-      this.containers = this.services.filter(category => {
+      this.teachers = this.courses.filter(category => {
         return category[this.filterby].toLowerCase().indexOf(this.filter.toLowerCase()) > -1
       });
     }

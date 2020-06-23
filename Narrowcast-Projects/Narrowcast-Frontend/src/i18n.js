@@ -3,6 +3,7 @@ import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
+// Dynamically load in the locales files
 function loadLocaleMessages() {
     const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
     const messages = {}
@@ -15,12 +16,12 @@ function loadLocaleMessages() {
             languages.push(matched[1])
         }
     })
-    Vue.prototype.$locales = languages
+    Vue.prototype.$locales = languages // Dynamically add the languages to the language selector
     return messages
 }
 
 export default new VueI18n({
-    locale: process.env.VUE_APP_I18N_LOCALE || localStorage.getItem('lang') || 'English',
+    locale: localStorage.getItem('lang') || 'English', // Grab language from localstorage setting else use default language
     fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'English',
     messages: loadLocaleMessages()
 })

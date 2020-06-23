@@ -6,6 +6,7 @@ import i18n from './i18n'
 
 Vue.config.productionTip = false
 
+// Create new Vue application
 new Vue({
   router,
   store,

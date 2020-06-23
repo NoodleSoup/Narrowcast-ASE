@@ -2,11 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
-import { LoginMS } from "../api/index";
+import { Microsoft } from "../api/index";
 import _ from 'underscore'
 
 Vue.use(VueRouter)
 
+// Initialize all available pages/ views and their access
 const routes = [
   {
     path: '/',
@@ -31,32 +32,16 @@ const routes = [
     meta: {
       requiresAuth: true
     }
-  },
-  {
-    // Debugging mainly, might not be in the final release
-    path: '/search',
-    name: 'search',
-    component: () => import('../views/Search.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/presence',
-    name: 'presence',
-    component: () => import('../views/Presence.vue'),
-    meta: {
-      requiresAuth: true,
-      requiresAccountType: ['teacher', 'teamleader']
-    }
   }
 ]
 
+// Setup router
 const router = new VueRouter({
   mode: 'history',
   routes
 })
 
+// Introduce router/ page conditions
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)){
     if (to.matched.some(page => page.meta.requiresAccountType)){
@@ -65,7 +50,7 @@ router.beforeEach((to, from, next) => {
       }
       next({name: 'home'})
     }
-    if (LoginMS.loggedIn()) {
+    if (Microsoft.loggedIn()) {
       next();
     }
     else if (!sessionStorage.getItem('token') && !to.query['code'] && !to.fullPath.includes('github')){
@@ -79,7 +64,10 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.hideForAuth)) {
-    if (sessionStorage.getItem('token')) {
+    if (Microsoft.loggedIn()) {
+      next({ name: 'home' });
+    }
+    else if (sessionStorage.getItem('token')) {
       next({ name: 'home' })
     } else {
       next();

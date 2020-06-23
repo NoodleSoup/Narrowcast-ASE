@@ -40,14 +40,12 @@
           <input class="inputAS" type="text" id="phoneNumber" :placeholder="phoneNumber" />
 
           <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.teacherPresent')}}</h3>
-          <!-- <input class="inputAS" type="text" id="teacherReachable" :placeholder="teacherPresent" /> -->
           <label class="switch">
             <input type="checkbox" id="teacherPresent" v-model="teacherPresent">
             <span class="slider round"></span>
           </label>
 
           <h3 class="AS-TextSet" for="fname">{{ $t('dashboard.table.teacherReachable')}}</h3>
-          <!-- <input class="inputAS" type="text" id="teacherReachable" :placeholder="teacherReachable" /> -->
           <label class="switch">
             <input type="checkbox" id="teacherReachable" v-model="teacherReachable" >
             <span class="slider round"></span>
@@ -61,7 +59,7 @@
 </template>
 
 <script>
-import { Api, graphConfig, LoginMS } from '@/api/index.js'
+import { Api, graphConfig, Microsoft } from '@/api/index.js'
 import _ from 'underscore'
 
 export default {
@@ -81,18 +79,19 @@ export default {
   methods: {
     logOut(){
       if (sessionStorage.getItem('token')) sessionStorage.removeItem('token');
-      if (LoginMS.loggedIn()) LoginMS.logOut();
+      if (Microsoft.loggedIn()) Microsoft.logOut();
       this.$router.push('/');
     },
+    // Handle saving of updated account data
     submitPage(){
       let inputeMail = document.getElementById("eMail").value || this.eMail;
       let inputphoneNumber = document.getElementById("phoneNumber").value || this.phoneNumber;
       let inputteacherPresent = this.teacherPresent;
       let inputteacherReachable = this.teacherReachable;
 
-      LoginMS.getTokenPopup()
+      Microsoft.getTokenPopup()
         .then(token => {
-          LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+          Microsoft.graphCall(graphConfig.graphMeEndpoint, token)
           .then(data => {
             Api.setAccountData(inputeMail, inputphoneNumber, inputteacherPresent, inputteacherReachable, data['id'])
         })
@@ -106,26 +105,22 @@ export default {
       let route = '/';
 
       switch(page) {
-        case "account":
-          route = '/account';
-          break;
-        case "dashboard":
+        case 'dashboard':
           route = '/home';
           break;
-        case "logout":
+        case 'logout':
           this.logOut()
-          break;
-        case "presence":
-          route = '/presence';
           break;
         default:
           route = '/'
       }
       this.$router.push(route);
     },
+    // Set the selected language
     languageChange(event){
       localStorage.setItem('lang', event.target.value);
     },
+    // Check account type
     checkRole(){
       if(_.contains(['teacher', 'teamleader'], sessionStorage.getItem('accountType'))){
         this.accountType = false
@@ -138,18 +133,18 @@ export default {
     })
     this.checkRole();
 
-    if(this.accountType !== true){
-      LoginMS.getTokenPopup()
+    if(this.accountType !== true){ // Show account information when account type is Teacher or Teamleader
+      Microsoft.getTokenPopup()
         .then(token => {
-          LoginMS.graphCall(graphConfig.graphMeEndpoint, token)
+          Microsoft.graphCall(graphConfig.graphMeEndpoint, token)
           .then(data => {
             Api.getAccountData(data['id']).then(accountData => {
               // eslint-disable-next-line
               console.log(accountData)
               this.eMail = accountData.eMail;
               this.phoneNumber = accountData.phoneNumber;
-              this.teacherPresent = accountData.teacherPresent; //=== true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false');
-              this.teacherReachable = accountData.teacherReachable; //=== true ? this.$t('dashboard.table.true') : this.$t('dashboard.table.false');
+              this.teacherPresent = accountData.teacherPresent;
+              this.teacherReachable = accountData.teacherReachable;
             });
           })
           .catch(error => {
