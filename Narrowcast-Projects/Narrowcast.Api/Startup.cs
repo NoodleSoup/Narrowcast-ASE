@@ -1,15 +1,17 @@
-using Narrowcast.Api.Domain;
-using Narrowcast.Api.Repositories;
-using Narrowcast.Api.Settings;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
+using Narrowcast.Api.Domain;
+using Narrowcast.Api.Repositories;
+using Narrowcast.Api.Settings;
 using System.Data;
 
 namespace Narrowcast.Api
@@ -34,6 +36,14 @@ namespace Narrowcast.Api
 
             services.AddTransient<INarrowcastReadRepository, NarrowcastReadRepository>();
             services.AddTransient<IDbConnection>(db => new MySqlConnection(AppSettings.Database.Connection));
+
+            services.AddMvcCore();
+            services.AddApiVersioning(option =>
+            {
+                option.ReportApiVersions = true;
+                option.AssumeDefaultVersionWhenUnspecified = true;
+                option.DefaultApiVersion = new ApiVersion(1, 0);
+            });
 
             services.AddControllers().AddJsonOptions(options =>
             {

@@ -1,17 +1,18 @@
-﻿using Narrowcast.Api.Domain;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Narrowcast.Api.Domain;
+using Narrowcast.Api.Models;
 using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Narrowcast.Api.Models;
-using Newtonsoft.Json.Linq;
 
 namespace Narrowcast.Api.Controllers
 {
     /// <summary>
     /// Class to setup the API endpoint
     /// </summary>
-    [ApiController, Route("narrowcast/v1.0")]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [ApiController, Route("narrowcast/v{version:apiVersion}")]
     public class NarrowcastController : ControllerBase
     {
         private readonly INarrowcastReadRepository _narrowcastRead;
@@ -135,5 +136,14 @@ namespace Narrowcast.Api.Controllers
                 accountData.data.accountId);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Endpoint to test API versioning
+        /// </summary>
+        /// <returns>
+        /// Returns string when using API version 2.0
+        /// </returns>
+        [HttpGet("test"), MapToApiVersion("2.0")]
+        public IActionResult Get() => Ok(new string[] { "Testing API versioning, API version 2.0" });
     }
 }
