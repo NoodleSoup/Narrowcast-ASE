@@ -66,7 +66,7 @@ export default {
   name: 'account-settings',
   data() {
     return {
-      accountType: true,
+      accountType: true, // is true when the logged in account is of the type Student, false for teacher or teamleader
       courses: null,
       eMail: null,
       langs: this.$locales,

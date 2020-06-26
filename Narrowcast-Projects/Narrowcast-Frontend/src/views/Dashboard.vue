@@ -4,7 +4,7 @@
     <header>
       <h1 class="header-text" v-if="selectedCourse !== null" v-text="returnDisplayName(selectedCourse)" />
       <div class="flex-box-2">
-        <button class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
+        <button v-if="false" class="button button-main" type="submit" v-on:click="printUserData($event)">Test</button>
         <button class="button button-main" type="submit" v-on:click="switchPage('account')">{{ $t('main.accountSettings') }}</button>
         <button class="button button-main" type="submit" v-on:click="switchPage('logout')">{{ $t('main.logout') }}</button>
       </div>
@@ -171,11 +171,11 @@ export default {
         this.filteredCourses();
     })
     if (Github.getTokenExpiry()) this.$router.push('/')
-    if (!sessionStorage.getItem('accountType'))
-      Microsoft.getAccountType()
     this.checkRole()
   },
   created(){
+    if (!sessionStorage.getItem('accountType'))
+        Microsoft.getAccountType()
     if (sessionStorage.getItem('token')){
       this.token = sessionStorage.getItem('token');
       return

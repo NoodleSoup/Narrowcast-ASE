@@ -5,8 +5,8 @@ import * as Msal from 'msal';
 const msalConfig = {
     auth: {
         clientId: Base.msClientID,
-        authority: 'https://login.microsoftonline.com/common/',
-        redirectUri: Base.redirectUrl
+        redirectUri: Base.redirectUrl,
+        postLogoutRedirectUri: Base.redirectUrlLogout
     },
     cache: {
         cacheLocation: 'sessionStorage', // This configures where your cache will be stored
