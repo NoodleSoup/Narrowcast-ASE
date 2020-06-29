@@ -1,15 +1,15 @@
-using HealthChecks.UI.Client;
+﻿using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Narrowcast.Api.Domain;
+using Narrowcast.Api.Logging;
 using Narrowcast.Api.Repositories;
 using Narrowcast.Api.Settings;
 using System.Data;
@@ -36,6 +36,8 @@ namespace Narrowcast.Api
 
             services.AddTransient<INarrowcastReadRepository, NarrowcastReadRepository>();
             services.AddTransient<IDbConnection>(db => new MySqlConnection(AppSettings.Database.Connection));
+
+            services.AddSingleton<ILog, NLogger>();
 
             services.AddMvcCore();
             services.AddApiVersioning(option =>
@@ -69,12 +71,13 @@ namespace Narrowcast.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// <summary>
-        /// Enables the added services in the application, sets the endpoints for the HealthChecks
-        /// and handles CORS settings.
+        /// Enables the added services in the application, sets the endpoints for the HealthChecks,
+        /// adds a global error handler, and handles CORS settings.
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="logger"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILog logger)
         {
             if (env.IsDevelopment())
             {
@@ -94,6 +97,8 @@ namespace Narrowcast.Api
                 Predicate = _ => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+
+            app.ConfigureExceptionHandler(logger);
 
             app.UseRouting();
 

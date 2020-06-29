@@ -37,3 +37,4 @@ develop.json
 Narrowcast-Projects/Narrowcast.Api/Properties/launchSettings.json
 Narrowcast-Projects/MySQL-dockerdb/Properties/launchSettings.json
 *.local
+Narrowcast-Projects/Narrowcast.Api/Log
